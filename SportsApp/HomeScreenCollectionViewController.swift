@@ -6,11 +6,33 @@
 //
 
 import UIKit
+class Sport{
+    var name: String?
+    var image: UIImage?
+    
+    init(name: String? = nil, image: UIImage? = nil) {
+        self.name = name
+        self.image = image
+    }
+}
 
 
+let footballImage = UIImage(named: "football.jpeg")!
+let basketballImage = UIImage(named: "football.jpeg")!
+let tennisImage = UIImage(named: "football.jpeg")!
+let cricketImage = UIImage(named: "football.jpeg")!
+
+let football = Sport(name: "Football", image: footballImage)
+let basketball = Sport(name: "Basketball", image: basketballImage)
+let tennis = Sport(name: "Tennis", image: tennisImage)
+let cricket = Sport(name: "Cricket", image: cricketImage)
 
 class HomeScreenCollectionViewController: UICollectionViewController,UICollectionViewDelegateFlowLayout{
     var leagues: [League] = []
+
+
+    let sports: [Sport] = [football, basketball, tennis, cricket]
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -48,13 +70,21 @@ class HomeScreenCollectionViewController: UICollectionViewController,UICollectio
         
         let league = leagues[indexPath.item]
         
-        cell.sportName.text = league.league_name
-        cell.sportImage.image = UIImage(named: league.league_logo ?? "notSAved")
+     //   cell.sportName.text = league.league_name
+        cell.sportName.text = sports[indexPath.row].name
+       // cell.sportImage.image = UIImage(named: "football")
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width / 2.4, height: view.frame.width / 2)
     }
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let leaguesViewControler = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "leaguesVC") as! LeaguesTableViewController
+        
+        leaguesViewControler.sport = sports[indexPath.row].name ?? ""
+        present(leaguesViewControler, animated: true, completion: nil)
+    }
+
 
     // MARK: UICollectionViewDelegate
 
