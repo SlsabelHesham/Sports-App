@@ -28,6 +28,7 @@ let tennis = Sport(name: "Tennis", image: tennisImage)
 let cricket = Sport(name: "Cricket", image: cricketImage)
 
 class HomeScreenCollectionViewController: UICollectionViewController,UICollectionViewDelegateFlowLayout{
+    var leagues: [League] = []
 
 
     let sports: [Sport] = [football, basketball, tennis, cricket]
@@ -36,6 +37,13 @@ class HomeScreenCollectionViewController: UICollectionViewController,UICollectio
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         collectionView.collectionViewLayout = UICollectionViewFlowLayout()
+        let fakeLeague = League(league_key: 1, league_name: "Kotb", league_logo: "football.jpeg")
+        let fakeLeague2 = League(league_key: 2, league_name: "jjjj", league_logo: "football.jpeg")
+        
+        CoreDataHelper.shared.deleteLeague(league: fakeLeague)
+        //CoreDataHelper.shared.saveLeague(league: fakeLeague)
+        //CoreDataHelper.shared.saveLeague(league: fakeLeague2)
+        leagues = CoreDataHelper.shared.fetchSavedLeagues()
     }
 
     /*
@@ -54,11 +62,15 @@ class HomeScreenCollectionViewController: UICollectionViewController,UICollectio
         return 1
     }
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return leagues.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! HomeScreenCell
+        
+        let league = leagues[indexPath.item]
+        
+     //   cell.sportName.text = league.league_name
         cell.sportName.text = sports[indexPath.row].name
        // cell.sportImage.image = UIImage(named: "football")
         return cell
