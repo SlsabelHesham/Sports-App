@@ -15,7 +15,6 @@
 		B0A172042BF54FD300A12295 /* SportsApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B0A172022BF54FD300A12295 /* SportsApp.xcdatamodeld */; };
 		B0A172062BF54FE000A12295 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0A172052BF54FE000A12295 /* Assets.xcassets */; };
 		B0A172092BF54FE000A12295 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = B0A172082BF54FE000A12295 /* Base */; };
-		B0A172112BF5508400A12295 /* Kotb.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0A172102BF5508400A12295 /* Kotb.storyboard */; };
 		B0A172132BF5531D00A12295 /* KotbViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A172122BF5531D00A12295 /* KotbViewController.swift */; };
 		E60EA5972BF6888F0063A12D /* HomeScreenCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60EA5962BF6888F0063A12D /* HomeScreenCollectionViewController.swift */; };
 		E60EA5992BF68DB60063A12D /* HomeScreenCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60EA5982BF68DB60063A12D /* HomeScreenCell.swift */; };
@@ -40,7 +39,6 @@
 		B0A172052BF54FE000A12295 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B0A172082BF54FE000A12295 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B0A1720A2BF54FE000A12295 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B0A172102BF5508400A12295 /* Kotb.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Kotb.storyboard; sourceTree = "<group>"; };
 		B0A172122BF5531D00A12295 /* KotbViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KotbViewController.swift; sourceTree = "<group>"; };
 		E60EA5962BF6888F0063A12D /* HomeScreenCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenCollectionViewController.swift; sourceTree = "<group>"; };
 		E60EA5982BF68DB60063A12D /* HomeScreenCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenCell.swift; sourceTree = "<group>"; };
@@ -96,7 +94,6 @@
 				B0A172072BF54FE000A12295 /* LaunchScreen.storyboard */,
 				B0A1720A2BF54FE000A12295 /* Info.plist */,
 				B0A172022BF54FD300A12295 /* SportsApp.xcdatamodeld */,
-				B0A172102BF5508400A12295 /* Kotb.storyboard */,
 				B0A172122BF5531D00A12295 /* KotbViewController.swift */,
 				E60EA5962BF6888F0063A12D /* HomeScreenCollectionViewController.swift */,
 				E60EA5982BF68DB60063A12D /* HomeScreenCell.swift */,
@@ -212,7 +209,6 @@
 				B0A172092BF54FE000A12295 /* Base in Resources */,
 				E6E9184D2BFB699A0048776B /* Favorite.storyboard in Resources */,
 				E60EA59B2BF68F250063A12D /* football.jpeg in Resources */,
-				B0A172112BF5508400A12295 /* Kotb.storyboard in Resources */,
 				B0A172012BF54FD300A12295 /* Base in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
