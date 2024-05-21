@@ -1,11 +1,13 @@
 //
-//  HomeScreenCollectionViewController.swift
+//  SportsCollectionViewController.swift
 //  SportsApp
 //
-//  Created by Mohamed Kotb Saied Kotb on 16/05/2024.
+//  Created by Slsabel Hesham on 21/05/2024.
 //
 
 import UIKit
+
+private let reuseIdentifier = "Cell"
 class Sport{
     var name: String?
     var image: UIImage?
@@ -27,23 +29,27 @@ let basketball = Sport(name: "Basketball", image: basketballImage)
 let tennis = Sport(name: "Tennis", image: tennisImage)
 let cricket = Sport(name: "Cricket", image: cricketImage)
 
-class HomeScreenCollectionViewController: UICollectionViewController,UICollectionViewDelegateFlowLayout{
-
+class SportsCollectionViewController: UICollectionViewController , UICollectionViewDelegateFlowLayout{
 
     let sports: [Sport] = [football, basketball, tennis, cricket]
 
-    var leagues: [League] = []
+  //  var leagues: [League] = []
+    override func viewWillAppear(_ animated: Bool) {
+        print("kotbbbb")
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        print("kotb")
         collectionView.collectionViewLayout = UICollectionViewFlowLayout()
-        let fakeLeague = League(league_key: 1, league_name: "Kotb", league_logo: "football.jpeg")
+       /* let fakeLeague = League(league_key: 1, league_name: "Kotb", league_logo: "football.jpeg")
         let fakeLeague2 = League(league_key: 2, league_name: "jjjj", league_logo: "football.jpeg")
         
         CoreDataHelper.shared.deleteLeague(league: fakeLeague)
         //CoreDataHelper.shared.saveLeague(league: fakeLeague)
         //CoreDataHelper.shared.saveLeague(league: fakeLeague2)
         leagues = CoreDataHelper.shared.fetchSavedLeagues()
+        */
     }
 
     /*
@@ -62,7 +68,7 @@ class HomeScreenCollectionViewController: UICollectionViewController,UICollectio
         return 1
     }
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return leagues.count
+        return sports.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -71,10 +77,10 @@ class HomeScreenCollectionViewController: UICollectionViewController,UICollectio
         cell.sportName.text = sports[indexPath.row].name
        // cell.sportImage.image = UIImage(named: "football")
         
-        let league = leagues[indexPath.item]
+       // let league = leagues[indexPath.item]
         
-        cell.sportName.text = league.league_name
-        cell.sportImage.image = UIImage(named: league.league_logo ?? "notSAved")
+        //cell.sportName.text = league.league_name
+        //cell.sportImage.image = UIImage(named: league.league_logo ?? "notSAved")
 
         return cell
     }
@@ -121,3 +127,4 @@ class HomeScreenCollectionViewController: UICollectionViewController,UICollectio
     */
 
 }
+
