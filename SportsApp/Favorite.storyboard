@@ -23,10 +23,10 @@
             </objects>
             <point key="canvasLocation" x="88" y="5"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Favorite Table View Controller-->
         <scene sceneID="4jo-ef-3El">
             <objects>
-                <tableViewController id="QfS-Xh-gLo" sceneMemberID="viewController">
+                <tableViewController id="QfS-Xh-gLo" customClass="FavoriteTableViewController" customModule="SportsApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="e0h-Xw-oDl">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
