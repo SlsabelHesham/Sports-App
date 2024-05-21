@@ -12,6 +12,7 @@ class FavoriteTableViewController: UITableViewController {
     var favoriteViewModel : FavoriteViewModel?
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("kotbbbbbbbbb")
         let nib = UINib(nibName: "LeaguesTableViewCell", bundle: nil)
         self.tableView.register(nib, forCellReuseIdentifier: LeaguesTableViewCell.identifire)
         
@@ -26,7 +27,11 @@ class FavoriteTableViewController: UITableViewController {
                 }
                 
             }
-        
+        print()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        favoriteViewModel?.getSavedLeagues()
+
     }
 
     // MARK: - Table view data source
@@ -45,6 +50,7 @@ class FavoriteTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: LeaguesTableViewCell.identifire, for: indexPath) as! LeaguesTableViewCell
 
+        print(favoriteViewModel?.leagues?.count ?? -5)
         cell.leagueName.text = favoriteViewModel?.leagues?[indexPath.row].league_name
 
         cell.leagueImage.kf.setImage(with: URL(string: favoriteViewModel?.leagues?[indexPath.row].league_logo ?? ""))

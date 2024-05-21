@@ -15,6 +15,6 @@ class FavoriteViewModel{
         }
     }
     func getSavedLeagues(){
-        leagues =  CoreDataHelper.shared.fetchSavedLeagues()
+        self.leagues =  CoreDataHelper.shared.fetchSavedLeagues()
     }
 }
