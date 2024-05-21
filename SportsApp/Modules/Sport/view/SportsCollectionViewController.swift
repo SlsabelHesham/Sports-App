@@ -8,32 +8,11 @@
 import UIKit
 
 private let reuseIdentifier = "Cell"
-class Sport{
-    var name: String?
-    var image: UIImage?
-    
-    init(name: String? = nil, image: UIImage? = nil) {
-        self.name = name
-        self.image = image
-    }
-}
-
-
-let footballImage = UIImage(named: "football.jpeg")!
-let basketballImage = UIImage(named: "football.jpeg")!
-let tennisImage = UIImage(named: "football.jpeg")!
-let cricketImage = UIImage(named: "football.jpeg")!
-
-let football = Sport(name: "Football", image: footballImage)
-let basketball = Sport(name: "Basketball", image: basketballImage)
-let tennis = Sport(name: "Tennis", image: tennisImage)
-let cricket = Sport(name: "Cricket", image: cricketImage)
 
 class SportsCollectionViewController: UICollectionViewController , UICollectionViewDelegateFlowLayout{
 
     let sports: [Sport] = [football, basketball, tennis, cricket]
 
-  //  var leagues: [League] = []
     override func viewWillAppear(_ animated: Bool) {
         print("kotbbbb")
     }
@@ -42,14 +21,6 @@ class SportsCollectionViewController: UICollectionViewController , UICollectionV
         // Do any additional setup after loading the view.
         print("kotb")
         collectionView.collectionViewLayout = UICollectionViewFlowLayout()
-       /* let fakeLeague = League(league_key: 1, league_name: "Kotb", league_logo: "football.jpeg")
-        let fakeLeague2 = League(league_key: 2, league_name: "jjjj", league_logo: "football.jpeg")
-        
-        CoreDataHelper.shared.deleteLeague(league: fakeLeague)
-        //CoreDataHelper.shared.saveLeague(league: fakeLeague)
-        //CoreDataHelper.shared.saveLeague(league: fakeLeague2)
-        leagues = CoreDataHelper.shared.fetchSavedLeagues()
-        */
     }
 
     /*
