@@ -8,12 +8,25 @@
 import UIKit
 
 class FavoriteTableViewController: UITableViewController {
-    var leagues: [League] = []
+    //var leagues: [League] = []
+    var favoriteViewModel : FavoriteViewModel?
     override func viewDidLoad() {
         super.viewDidLoad()
-        let fakeLeague = League(league_key: 1, league_name: "Kotb", league_logo: "football")
-        CoreDataHelper.shared.saveLeague(league: fakeLeague)
-        leagues = CoreDataHelper.shared.fetchSavedLeagues()
+        let nib = UINib(nibName: "LeaguesTableViewCell", bundle: nil)
+        self.tableView.register(nib, forCellReuseIdentifier: LeaguesTableViewCell.identifire)
+        
+        favoriteViewModel = FavoriteViewModel()
+        //leagues = CoreDataHelper.shared.fetchSavedLeagues()
+            favoriteViewModel?.bindResultToFavoriteViewController = { [weak self] in
+                DispatchQueue.main.async {
+                    //render
+                    self?.tableView.reloadData()
+
+                   // self?.indicator.stopAnimating()
+                }
+                
+            }
+        
     }
 
     // MARK: - Table view data source
@@ -25,14 +38,16 @@ class FavoriteTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return leagues.count
+        return favoriteViewModel?.leagues?.count ?? 0
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: LeaguesTableViewCell.identifire, for: indexPath) as! LeaguesTableViewCell
 
-        // Configure the cell...
+        cell.leagueName.text = favoriteViewModel?.leagues?[indexPath.row].league_name
+
+        cell.leagueImage.kf.setImage(with: URL(string: favoriteViewModel?.leagues?[indexPath.row].league_logo ?? ""))
 
         return cell
     }

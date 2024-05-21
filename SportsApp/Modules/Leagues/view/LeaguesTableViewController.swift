@@ -17,6 +17,8 @@ class LeaguesTableViewController: UITableViewController {
         super.viewDidLoad()
         let nib = UINib(nibName: "LeaguesTableViewCell", bundle: nil)
         self.tableView.register(nib, forCellReuseIdentifier: LeaguesTableViewCell.identifire)
+        let fakeLeague = League(league_key: 1, league_name: "Kotb", league_logo: "football")
+        CoreDataHelper.shared.saveLeague(league: fakeLeague)
 
         leaguesViewModel = LeaguesViewModel()
         leaguesViewModel?.bindResultToLeaguesViewController = { [weak self] in

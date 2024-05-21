@@ -7,7 +7,7 @@
 
 import Foundation
 import CoreData
-import UIKit
+
 
 
 class CoreDataHelper {
@@ -26,7 +26,7 @@ class CoreDataHelper {
     
     
     func saveLeague(league:League) {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let appDelegate = Utility.appDelegete
         let context = appDelegate.persistentContainer.viewContext
         let entity = NSEntityDescription.entity(forEntityName: "FavouriteItem", in: context)
         
@@ -44,7 +44,7 @@ class CoreDataHelper {
     }
     
     func deleteLeague(league:League) {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let appDelegate = Utility.appDelegete
         let context = appDelegate.persistentContainer.viewContext
         
         let request: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "FavouriteItem")
@@ -65,7 +65,7 @@ class CoreDataHelper {
     
     func fetchSavedLeagues() -> [League] {
         var savedLeagues: [League] = []
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let appDelegate = Utility.appDelegete
         let context = appDelegate.persistentContainer.viewContext
         
         let fetchRequest =  NSFetchRequest<NSManagedObject>(entityName: "FavouriteItem")
