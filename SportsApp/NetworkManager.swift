@@ -13,6 +13,7 @@ import Alamofire
 func getDataFromNetwork(sport: String, handler: @escaping (LeagueResult?) -> Void){
     let url = "https://apiv2.allsportsapi.com/\(sport.lowercased())/?met=Leagues&APIkey=\(Constants.api_key)"
     
+
     AF.request(url).responseData { response in
         switch response.result {
         case .success(let data):

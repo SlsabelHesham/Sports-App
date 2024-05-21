@@ -50,16 +50,6 @@
             </objects>
             <point key="canvasLocation" x="1544" y="-142"/>
         </scene>
-        <!--Kotb-->
-        <scene sceneID="o2I-AQ-A94">
-            <objects>
-                <viewControllerPlaceholder storyboardIdentifier="kotb" storyboardName="Kotb" id="FwL-dq-FNP" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="BGG-3w-4lL"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="DeL-mq-XK5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1677" y="-9"/>
-        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="lFV-hT-Wi0">
             <objects>
@@ -71,18 +61,18 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="z5o-fJ-Qbh" kind="relationship" relationship="viewControllers" id="UYV-dN-M8m"/>
-                        <segue destination="4wJ-4y-d9S" kind="relationship" relationship="viewControllers" id="2PD-5v-Iye"/>
+                        <segue destination="z5o-fJ-Qbh" kind="relationship" relationship="viewControllers" id="oIo-x2-DPy"/>
+                        <segue destination="4wJ-4y-d9S" kind="relationship" relationship="viewControllers" id="x0Z-U9-cEH"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dWi-7W-WmS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-167.17557251908397" y="-16.197183098591552"/>
+            <point key="canvasLocation" x="-227" y="-262"/>
         </scene>
         <!--Item-->
         <scene sceneID="siX-Ug-RcA">
             <objects>
-                <collectionViewController id="z5o-fJ-Qbh" customClass="HomeScreenCollectionViewController" customModule="SportsApp" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController id="z5o-fJ-Qbh" customClass="SportsCollectionViewController" customModule="SportsApp" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="khV-CF-9Yq">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -140,7 +130,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qhO-Kk-ih0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="630" y="-142"/>
+            <point key="canvasLocation" x="821" y="-273"/>
         </scene>
     </scenes>
     <resources>
