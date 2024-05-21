@@ -1,19 +1,51 @@
 //
-//  FavoriteTableViewController.swift
+//  LeaguesTableViewController.swift
 //  SportsApp
 //
-//  Created by Mohamed Kotb Saied Kotb on 20/05/2024.
+//  Created by Slsabel Hesham on 20/05/2024.
 //
 
 import UIKit
+import Kingfisher
 
-class FavoriteTableViewController: UITableViewController {
-    var leagues: [League] = []
+class LeaguesTableViewController: UITableViewController {
+    //var leagues: [League]? = []
+    var leaguesViewModel: LeaguesViewModel?
+
+    var sport: String = ""
     override func viewDidLoad() {
         super.viewDidLoad()
+        let nib = UINib(nibName: "LeaguesTableViewCell", bundle: nil)
+        self.tableView.register(nib, forCellReuseIdentifier: LeaguesTableViewCell.identifire)
         let fakeLeague = League(league_key: 1, league_name: "Kotb", league_logo: "football")
         CoreDataHelper.shared.saveLeague(league: fakeLeague)
-        leagues = CoreDataHelper.shared.fetchSavedLeagues()
+
+        leaguesViewModel = LeaguesViewModel()
+        leaguesViewModel?.bindResultToLeaguesViewController = { [weak self] in
+            DispatchQueue.main.async {
+                //render
+                self?.tableView.reloadData()
+
+               // self?.indicator.stopAnimating()
+            }
+            
+        }
+        leaguesViewModel?.getLeagues(sport: sport)
+
+
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+       /* getDataFromNetwork(sport: sport) { [weak self] leagues in
+            self?.leagues = leagues?.result
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+            }
+        }*/
+
     }
 
     // MARK: - Table view data source
@@ -25,18 +57,25 @@ class FavoriteTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return leagues.count
+        return leaguesViewModel?.leagues?.count ?? 0
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: LeaguesTableViewCell.identifire, for: indexPath) as! LeaguesTableViewCell
 
-        // Configure the cell...
+        cell.leagueName.text = leaguesViewModel?.leagues?[indexPath.row].league_name
+
+        cell.leagueImage.kf.setImage(with: URL(string: leaguesViewModel?.leagues?[indexPath.row].league_logo ?? ""))
+
 
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let leaguesViewControler = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "") as! LeaguesTableViewController
+    }
 
     /*
     // Override to support conditional editing of the table view.
