@@ -1,35 +1,36 @@
 //
-//  LeaguesTableViewController.swift
+//  FavoriteTableViewController.swift
 //  SportsApp
 //
-//  Created by Slsabel Hesham on 20/05/2024.
+//  Created by Mohamed Kotb Saied Kotb on 20/05/2024.
 //
 
 import UIKit
-import Kingfisher
 
-class LeaguesTableViewController: UITableViewController {
-    var leagues: [League]? = []
-
-    var sport: String = ""
+class FavoriteTableViewController: UITableViewController {
+    //var leagues: [League] = []
+    var favoriteViewModel : FavoriteViewModel?
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("kotbbbbbbbbb")
         let nib = UINib(nibName: "LeaguesTableViewCell", bundle: nil)
         self.tableView.register(nib, forCellReuseIdentifier: LeaguesTableViewCell.identifire)
-
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
-        getDataFromNetwork(sport: sport) { [weak self] leagues in
-            self?.leagues = leagues?.result
-                    DispatchQueue.main.async {
-                        self?.tableView.reloadData()
-                    }
+        favoriteViewModel = FavoriteViewModel()
+        //leagues = CoreDataHelper.shared.fetchSavedLeagues()
+            favoriteViewModel?.bindResultToFavoriteViewController = { [weak self] in
+                DispatchQueue.main.async {
+                    //render
+                    self?.tableView.reloadData()
+
+                   // self?.indicator.stopAnimating()
                 }
+                
+            }
+        print()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        favoriteViewModel?.getSavedLeagues()
 
     }
 
@@ -42,25 +43,21 @@ class LeaguesTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return leagues?.count ?? 0
+        return favoriteViewModel?.leagues?.count ?? 0
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: LeaguesTableViewCell.identifire, for: indexPath) as! LeaguesTableViewCell
 
-        cell.leagueName.text = leagues?[indexPath.row].league_name
+        print(favoriteViewModel?.leagues?.count ?? -5)
+        cell.leagueName.text = favoriteViewModel?.leagues?[indexPath.row].league_name
 
-        cell.leagueImage.kf.setImage(with: URL(string: leagues?[indexPath.row].league_logo ?? ""))
-
+        cell.leagueImage.kf.setImage(with: URL(string: favoriteViewModel?.leagues?[indexPath.row].league_logo ?? ""))
 
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        let leaguesViewControler = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "") as! LeaguesTableViewController
-    }
 
     /*
     // Override to support conditional editing of the table view.
