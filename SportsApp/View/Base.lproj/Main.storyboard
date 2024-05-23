@@ -276,7 +276,7 @@
                                     <outlet property="team2NameR" destination="rxa-4c-Xa9" id="dRU-XE-g3d"/>
                                 </connections>
                             </collectionViewCell>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TeamsCell" id="FQc-6T-iSJ">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TeamsCell" id="FQc-6T-iSJ" customClass="TeamsCollectionViewCell" customModule="SportsApp" customModuleProvider="target">
                                 <rect key="frame" x="103" y="276" width="128" height="139"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="yUI-1u-Mc1">
@@ -287,16 +287,12 @@
                                             <rect key="frame" x="2" y="2.6666666666666288" width="122" height="81.333333333333343"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Team Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pg6-PM-rAo">
-                                            <rect key="frame" x="23.000000000000227" y="103" width="79.999999999995453" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                     </subviews>
                                 </collectionViewCellContentView>
                                 <size key="customSize" width="128" height="139"/>
+                                <connections>
+                                    <outlet property="teamsLogo" destination="Uet-au-CU7" id="lsA-30-3aW"/>
+                                </connections>
                             </collectionViewCell>
                         </cells>
                         <connections>

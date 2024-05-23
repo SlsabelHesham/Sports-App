@@ -34,6 +34,7 @@
 		E60EA5992BF68DB60063A12D /* HomeScreenCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60EA5982BF68DB60063A12D /* HomeScreenCell.swift */; };
 		E60EA59B2BF68F250063A12D /* football.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = E60EA59A2BF68F250063A12D /* football.jpeg */; };
 		E6228C912BFCEAFB00BD3BB0 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6228C902BFCEAFB00BD3BB0 /* Utility.swift */; };
+		E653EF9D2BFFE15C005FA449 /* TeamsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E653EF9C2BFFE15C005FA449 /* TeamsCollectionViewCell.swift */; };
 		E6E9184D2BFB699A0048776B /* Favorite.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6E9184C2BFB699A0048776B /* Favorite.storyboard */; };
 		E6E9184F2BFB6C500048776B /* FavoriteTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E9184E2BFB6C500048776B /* FavoriteTableViewController.swift */; };
 		E6E918562BFB781D0048776B /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E918552BFB781D0048776B /* CoreDataManager.swift */; };
@@ -77,6 +78,7 @@
 		E60EA5982BF68DB60063A12D /* HomeScreenCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenCell.swift; sourceTree = "<group>"; };
 		E60EA59A2BF68F250063A12D /* football.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = football.jpeg; sourceTree = "<group>"; };
 		E6228C902BFCEAFB00BD3BB0 /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
+		E653EF9C2BFFE15C005FA449 /* TeamsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsCollectionViewCell.swift; sourceTree = "<group>"; };
 		E6E9184C2BFB699A0048776B /* Favorite.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Favorite.storyboard; sourceTree = "<group>"; };
 		E6E9184E2BFB6C500048776B /* FavoriteTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteTableViewController.swift; sourceTree = "<group>"; };
 		E6E918552BFB781D0048776B /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 				B09ADCBC2BFEA1D700CDBB40 /* CollectionViewController.swift */,
 				B09ADCBE2BFF1EEA00CDBB40 /* UpcomingEventsCollectionViewCell.swift */,
 				B0A483CE2BFFB68800555E12 /* LatestResultsCollectionViewCell.swift */,
+				E653EF9C2BFFE15C005FA449 /* TeamsCollectionViewCell.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -139,11 +142,7 @@
 		B09CC22F2BFCDB5F0023A065 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-
 				E6F6221F2BFE59520090A90A /* TeamDetails */,
-				E6228C8D2BFCEA3400BD3BB0 /* Favorite */,
-
-
 				B09CC23A2BFCE3730023A065 /* Leagues */,
 				B09ADCC02BFF202200CDBB40 /* LeaguesDetails */,
 				E6228C8D2BFCEA3400BD3BB0 /* Favorite */,
@@ -500,11 +499,9 @@
 				E6E9184F2BFB6C500048776B /* FavoriteTableViewController.swift in Sources */,
 				B09ADCBD2BFEA1D700CDBB40 /* CollectionViewController.swift in Sources */,
 				B0A171FA2BF54FD300A12295 /* AppDelegate.swift in Sources */,
-
 				E6F622232BFE59B60090A90A /* TeamDetailsViewController.swift in Sources */,
-
+				E653EF9D2BFFE15C005FA449 /* TeamsCollectionViewCell.swift in Sources */,
 				B0A483CF2BFFB68800555E12 /* LatestResultsCollectionViewCell.swift in Sources */,
-
 				B09CC22D2BFCCC080023A065 /* SportsCollectionViewController.swift in Sources */,
 				E6228C912BFCEAFB00BD3BB0 /* Utility.swift in Sources */,
 				B09ADCC72BFF2AAA00CDBB40 /* Event.swift in Sources */,

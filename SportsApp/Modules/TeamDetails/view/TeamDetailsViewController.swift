@@ -18,6 +18,7 @@ class TeamDetailsViewController: UIViewController, UITableViewDelegate, UITableV
     
     var sport: String = ""
     var teamId: Int = 0 
+    var team : Team = Team()
     
     var viewModel : TeamDetailsViewModel?
     override func viewDidLoad() {
@@ -30,32 +31,37 @@ class TeamDetailsViewController: UIViewController, UITableViewDelegate, UITableV
             DispatchQueue.main.async {
                 //render
                 self?.tableView.reloadData()
-                self?.teamLogo.kf.setImage(with: URL(string: self?.viewModel?.teams?.first?.teamLogo ?? ""))
-                self?.teamName.text = self?.viewModel?.teams?.first?.teamName ?? ""
+                
                 
 
                // self?.indicator.stopAnimating()
             }
             
+            
         }
-        viewModel?.getTeamsDetails(sport: sport, teamId: teamId)
+        //viewModel?.getTeamsDetails(sport: sport, teamId: teamId)
+        teamLogo.kf.setImage(with: URL(string: self.team.team_logo ?? ""))
+        teamName.text = self.team.team_name
+        print(team.team_name)
     }
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel?.teams?.first?.players.count ?? 0
+        return team.players?.count ?? 0
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TeamDetailsTableViewCell
+        
+        let result = team.players?[indexPath.row]
 
-        cell.playerName.text = viewModel?.teams?[indexPath.row].players[indexPath.row].playerName
-        cell.playerNumber.text = viewModel?.teams?[indexPath.row].players[indexPath.row].playerNumber
+        cell.playerName.text = result?.player_name
+        cell.playerNumber.text = result?.player_number
 
-        cell.playerLogo.kf.setImage(with: URL(string: viewModel?.teams?[indexPath.row].players[indexPath.row].playerImage ?? ""))
+        cell.playerLogo.kf.setImage(with: URL(string: result?.player_image ?? ""))
 
 
         return cell
