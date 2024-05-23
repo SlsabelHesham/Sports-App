@@ -23,10 +23,9 @@ class LeaguesTableViewController: UITableViewController {
         leaguesViewModel = LeaguesViewModel()
         leaguesViewModel?.bindResultToLeaguesViewController = { [weak self] in
             DispatchQueue.main.async {
-                //render
+                
                 self?.tableView.reloadData()
 
-               // self?.indicator.stopAnimating()
             }
             
         }
@@ -74,7 +73,9 @@ class LeaguesTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let leaguesViewControler = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "") as! LeaguesTableViewController
+        let leaguesDetailsViewControler = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "") as! CollectionViewController
+        
+        
     }
 
     /*

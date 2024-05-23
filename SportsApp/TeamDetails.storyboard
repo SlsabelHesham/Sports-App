@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Team Details View Controller-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController id="Y6W-OH-hqX" customClass="TeamDetailsViewController" customModule="SportsApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SWx-cq-rb0">
+                                <rect key="frame" x="8" y="59" width="377" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="NJv-9I-YLG"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Team Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EnG-Ps-ILY">
+                                <rect key="frame" x="8" y="195" width="361" height="23"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="z9d-Pc-ccr">
+                                <rect key="frame" x="0.0" y="226" width="393" height="592"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="113" id="w0P-b6-6NJ" customClass="TeamDetailsTableViewCell" customModule="SportsApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="50" width="393" height="113"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="w0P-b6-6NJ" id="Bvw-GI-upo">
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="113"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3ye-ay-m5o">
+                                                    <rect key="frame" x="0.0" y="8" width="152" height="105"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Player Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cvY-6r-xpU">
+                                                    <rect key="frame" x="160" y="20" width="96" height="20.333333333333329"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vjK-as-ZbL">
+                                                    <rect key="frame" x="160" y="48.333333333333343" width="61.666666666666657" height="44.666666666666657"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="cvY-6r-xpU" firstAttribute="leading" secondItem="3ye-ay-m5o" secondAttribute="trailing" constant="8" id="DFP-8I-jZd"/>
+                                                <constraint firstItem="3ye-ay-m5o" firstAttribute="top" secondItem="Bvw-GI-upo" secondAttribute="top" constant="8" id="EMg-Le-hod"/>
+                                                <constraint firstAttribute="bottom" secondItem="3ye-ay-m5o" secondAttribute="bottom" id="G2h-Fp-Hzg"/>
+                                                <constraint firstItem="3ye-ay-m5o" firstAttribute="width" secondItem="Bvw-GI-upo" secondAttribute="width" multiplier="0.386768" id="GNV-OJ-cFt"/>
+                                                <constraint firstItem="3ye-ay-m5o" firstAttribute="height" secondItem="Bvw-GI-upo" secondAttribute="height" multiplier="0.929204" id="M24-E2-SkT"/>
+                                                <constraint firstItem="vjK-as-ZbL" firstAttribute="top" secondItem="cvY-6r-xpU" secondAttribute="bottom" constant="8" id="R6Y-hC-FxG"/>
+                                                <constraint firstItem="3ye-ay-m5o" firstAttribute="leading" secondItem="Bvw-GI-upo" secondAttribute="leading" id="d2Z-nb-Eqp"/>
+                                                <constraint firstItem="vjK-as-ZbL" firstAttribute="leading" secondItem="3ye-ay-m5o" secondAttribute="trailing" constant="8" id="hkG-Mm-CDH"/>
+                                                <constraint firstItem="cvY-6r-xpU" firstAttribute="top" secondItem="Bvw-GI-upo" secondAttribute="topMargin" constant="8" id="lKf-DB-eEr"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="vjK-as-ZbL" secondAttribute="bottom" constant="8" id="s7Q-DJ-q1N"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="playerLogo" destination="3ye-ay-m5o" id="Pw2-qk-jsE"/>
+                                            <outlet property="playerName" destination="cvY-6r-xpU" id="EFc-5P-deW"/>
+                                            <outlet property="playerNumber" destination="vjK-as-ZbL" id="aCh-pD-Jrd"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="SWx-cq-rb0" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="2RW-CQ-Lhn"/>
+                            <constraint firstItem="z9d-Pc-ccr" firstAttribute="top" secondItem="EnG-Ps-ILY" secondAttribute="bottom" constant="8" id="4c5-fo-wYV"/>
+                            <constraint firstItem="z9d-Pc-ccr" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="5Zd-wd-UGU"/>
+                            <constraint firstItem="EnG-Ps-ILY" firstAttribute="top" secondItem="SWx-cq-rb0" secondAttribute="bottom" constant="8" id="J1h-XO-7yj"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="SWx-cq-rb0" secondAttribute="trailing" constant="8" id="P3n-FM-mLh"/>
+                            <constraint firstItem="SWx-cq-rb0" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="8" id="TZP-Ca-8f7"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="EnG-Ps-ILY" secondAttribute="trailing" constant="8" id="ZzG-ud-CfX"/>
+                            <constraint firstItem="EnG-Ps-ILY" firstAttribute="top" secondItem="SWx-cq-rb0" secondAttribute="bottom" constant="8" id="dRe-Cw-4Lp"/>
+                            <constraint firstItem="z9d-Pc-ccr" firstAttribute="bottom" secondItem="vDu-zF-Fre" secondAttribute="bottom" id="pN8-0Q-Qmi"/>
+                            <constraint firstItem="EnG-Ps-ILY" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="8" id="sxb-Ee-pO7"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="z9d-Pc-ccr" secondAttribute="trailing" id="vUf-b3-NDz"/>
+                            <constraint firstItem="SWx-cq-rb0" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="yY1-d7-Yfy"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="z9d-Pc-ccr" id="FBm-GO-7n7"/>
+                        <outlet property="teamLogo" destination="SWx-cq-rb0" id="OrL-tq-1aQ"/>
+                        <outlet property="teamName" destination="EnG-Ps-ILY" id="mtA-l9-JZE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="87.786259541984734" y="4.9295774647887329"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
