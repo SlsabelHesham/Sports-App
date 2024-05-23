@@ -28,3 +28,23 @@ func getDataFromNetwork(sport: String, handler: @escaping (LeagueResult?) -> Voi
         }
     }
 }
+
+func getTeamDetailsFromApi(sport: String,teamId :Int, handler: @escaping (TeamsResponse?) -> Void){
+    let url = "https://apiv2.allsportsapi.com/\(sport.lowercased())/?&met=Teams&teamId=\(teamId)&APIkey=\(Constants.api_key)"
+    
+    AF.request(url).responseData { response in
+        switch response.result {
+        case .success(let data):
+            do {
+                let results = try JSONDecoder().decode(TeamsResponse.self, from: data)
+                handler(results)
+            } catch {
+                print("\(error.localizedDescription)")
+            }
+        case .failure(let error):
+            print("\(error.localizedDescription)")
+        }
+    }
+}
+
+
