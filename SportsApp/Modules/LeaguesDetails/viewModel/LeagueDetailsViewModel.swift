@@ -19,6 +19,11 @@ class LeagueDetailsViewModel{
             bindResultToLeaguesDetailsViewController()
         }
     }
+    var teams: [Team]?{
+        didSet {
+            bindResultToLeaguesDetailsViewController()
+        }
+    }
 
     func getLeagueUpcomingEvents(sport: String){
         getUpcomingEventsFromNetwork(sport: sport) { [weak self] events in
@@ -28,6 +33,12 @@ class LeagueDetailsViewModel{
     func getLeagueLatesResults(sport: String){
         getLatestResultsFromNetwork(sport: sport) { [weak self] events in
             self?.latestResults = events?.result
+        }
+    }
+    
+    func getTeamsResults(sport: String , leagueId: Int){
+        getTeamDetailsFromApi(sport: sport, leagueId: leagueId){ [weak self] teamsResult in
+            self?.teams = teamsResult?.result
         }
     }
 

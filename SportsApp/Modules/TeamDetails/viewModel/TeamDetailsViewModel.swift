@@ -15,10 +15,11 @@ class TeamDetailsViewModel{
         }
     }
     
-    func getTeamsDetails(sport: String , teamId: Int){
-        getTeamDetailsFromApi(sport: sport, teamId: teamId) { [weak self] teams in
-            self?.teams = teams?.result
-        }
-    }
+//    func getTeamsDetails(sport: String , teamId: Int){
+//        getTeamDetailsFromApi(sport: sport, teamId: teamId) { [weak self] teams in
+//            self?.teams = teams?.result
+//        }
+//    }
+    
 }
 

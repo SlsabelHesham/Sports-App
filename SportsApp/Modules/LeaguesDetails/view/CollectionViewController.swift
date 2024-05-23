@@ -22,6 +22,8 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                 return self.UpcomingEventsSection()
             case 1:
                 return self.LatestResultsSection()
+            case 2 :
+                return self.TeamsSection()
             default:
                 return self.TeamsSection()
             }
@@ -40,9 +42,10 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         }
         leaguesDetailsViewModel?.getLeagueUpcomingEvents(sport: "football")
         leaguesDetailsViewModel?.getLeagueLatesResults(sport: "football")
-
-
-
+        leaguesDetailsViewModel?.getTeamsResults(sport: "football", leagueId: 152)
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        leaguesDetailsViewModel?.getTeamsResults(sport: "football", leagueId: 152)
     }
     func UpcomingEventsSection()-> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1)
@@ -128,7 +131,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 4
+        return 3
     }
     
     
@@ -160,8 +163,16 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
             return cell
 
         case 2:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TeamsCell", for: indexPath)
-            // Configure cell3
+            print("ahly")
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TeamsCell", for: indexPath) as! TeamsCollectionViewCell
+            print(leaguesDetailsViewModel?.teams?.count)
+            if let results = leaguesDetailsViewModel?.teams, indexPath.row < results.count {
+                let result = results[indexPath.row]
+                print(result.players?.count)
+               
+                
+                cell.teamsLogo.kf.setImage(with: URL(string: result.team_logo ?? ""))
+            }
             return cell
             
         default:
@@ -176,7 +187,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         case 1:
             return leaguesDetailsViewModel?.latestResults?.count ?? 0
         case 2:
-            return 5
+            return leaguesDetailsViewModel?.teams?.count ?? 8
         default:
             return 0
         }
@@ -227,6 +238,17 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         //}
     }
     */
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if (indexPath.section  == 2) {
+            let teamsViewControler = UIStoryboard(name: "TeamDetails", bundle: nil).instantiateViewController(withIdentifier: "teamDetails") as! TeamDetailsViewController
+            
+            teamsViewControler.team = leaguesDetailsViewModel?.teams?[indexPath.row] ?? Team()
+            present(teamsViewControler, animated: true, completion: nil)
+            
+        }
+    }
+        
+  
 }
 
 /*
