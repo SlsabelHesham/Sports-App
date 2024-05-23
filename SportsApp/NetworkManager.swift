@@ -29,13 +29,27 @@ func getDataFromNetwork(sport: String, handler: @escaping (LeagueResult?) -> Voi
     }
 }
 
+
+func getTeamDetailsFromApi(sport: String,teamId :Int, handler: @escaping (TeamsResponse?) -> Void){
+    let url = "https://apiv2.allsportsapi.com/\(sport.lowercased())/?&met=Teams&teamId=\(teamId)&APIkey=\(Constants.api_key)"
+
 func getUpcomingEventsFromNetwork(sport: String, handler: @escaping (EventResult?) -> Void){
     let url = "https://apiv2.allsportsapi.com/football?met=Fixtures&leagueId=207&from=2024-05-23&to=2025-05-23&APIkey=\(Constants.api_key)"
+
     
     AF.request(url).responseData { response in
         switch response.result {
         case .success(let data):
             do {
+
+                let results = try JSONDecoder().decode(TeamsResponse.self, from: data)
+                handler(results)
+            } catch {
+                print("\(error.localizedDescription)")
+            }
+        case .failure(let error):
+            print("\(error.localizedDescription)")
+
                 let results = try JSONDecoder().decode(EventResult.self, from: data)
                 handler(results)
                 print("ss")
@@ -66,6 +80,7 @@ func getLatestResultsFromNetwork(sport: String, handler: @escaping (EventResult?
         case .failure(let error):
             print("\(error.localizedDescription)")
             print("2")
+
         }
     }
 }
