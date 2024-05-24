@@ -82,12 +82,20 @@ class LeaguesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
         if isInternetAvailable(){
             let leaguesDetailsViewControler = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "") as! CollectionViewController
         } else {
             showAlert()
         }
+
         
+        let leaguesDetailsViewControler = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LeagueDetails") as! CollectionViewController
+        leaguesDetailsViewControler.sport = self.sport
+        leaguesDetailsViewControler.leagueId = leaguesViewModel?.leagues?[indexPath.row].league_key
+
+        
+        present(leaguesDetailsViewControler, animated: true, completion: nil)
         
     }
     
