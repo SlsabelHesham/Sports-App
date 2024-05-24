@@ -25,7 +25,7 @@ class CoreDataHelper {
     }()
     
     
-    func saveLeague(league:League) {
+    func saveLeague(league:FavoriteLeague) {
         let appDelegate = Utility.appDelegete
         let context = appDelegate.persistentContainer.viewContext
         let entity = NSEntityDescription.entity(forEntityName: "FavouriteItem", in: context)
@@ -34,6 +34,7 @@ class CoreDataHelper {
         newEntity.setValue(league.league_key, forKey: "id")
         newEntity.setValue(league.league_name, forKey: "title")
         newEntity.setValue(league.league_logo, forKey: "image")
+        newEntity.setValue(league.sport_name, forKey: "sport_name")
         do{
             try context.save()
             print("saved")
@@ -43,7 +44,7 @@ class CoreDataHelper {
         
     }
     
-    func deleteLeague(league:League) {
+    func deleteLeague(league:FavoriteLeague) {
         let appDelegate = Utility.appDelegete
         let context = appDelegate.persistentContainer.viewContext
         
@@ -63,8 +64,8 @@ class CoreDataHelper {
     }
    
     
-    func fetchSavedLeagues() -> [League] {
-        var savedLeagues: [League] = []
+    func fetchSavedLeagues() -> [FavoriteLeague] {
+        var savedLeagues: [FavoriteLeague] = []
         let appDelegate = Utility.appDelegete
         let context = appDelegate.persistentContainer.viewContext
         
@@ -75,8 +76,9 @@ class CoreDataHelper {
             for entity in fetchedEntities {
                 if let id = entity.value(forKey: "id") as? Int,
                    let title = entity.value(forKey: "title") as? String,
-                   let image = entity.value(forKey: "image") as? String {
-                    let cashedLeague = League(league_key: id, league_name: title, league_logo: image)
+                   let image = entity.value(forKey: "image") as? String,
+                   let sport_name = entity.value(forKey: "sport_name") as? String{
+                    let cashedLeague = FavoriteLeague(league_key: id, league_name: title, league_logo: image, sport_name: sport_name)
                     savedLeagues.append(cashedLeague)
                 }
             }
