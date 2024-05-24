@@ -6,13 +6,14 @@
 //
 
 import UIKit
-
+import Reachability
 
 class CollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     var leaguesDetailsViewModel: LeagueDetailsViewModel?
+    var reachability: Reachability!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        reachability = try! Reachability()
         self.collectionView.delegate = self
 
         // Set up the compositional layout
@@ -163,7 +164,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
             return cell
 
         case 2:
-            print("ahly")
+            
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TeamsCell", for: indexPath) as! TeamsCollectionViewCell
             print(leaguesDetailsViewModel?.teams?.count)
             if let results = leaguesDetailsViewModel?.teams, indexPath.row < results.count {
@@ -240,13 +241,27 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     */
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if (indexPath.section  == 2) {
-            let teamsViewControler = UIStoryboard(name: "TeamDetails", bundle: nil).instantiateViewController(withIdentifier: "teamDetails") as! TeamDetailsViewController
-            
-            teamsViewControler.team = leaguesDetailsViewModel?.teams?[indexPath.row] ?? Team()
-            present(teamsViewControler, animated: true, completion: nil)
-            
+            if isInternetAvailable(){
+                let teamsViewControler = UIStoryboard(name: "TeamDetails", bundle: nil).instantiateViewController(withIdentifier: "teamDetails") as! TeamDetailsViewController
+                
+                teamsViewControler.team = leaguesDetailsViewModel?.teams?[indexPath.row] ?? Team()
+                present(teamsViewControler, animated: true, completion: nil)
+                
+            } else {
+                showAlert()
+            }
         }
     }
+    func isInternetAvailable() -> Bool {
+        return reachability.connection != .unavailable
+    }
+
+    func showAlert() {
+        let alert = UIAlertController(title: "No Internet Connection", message: "Please check your internet connection and try again.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+
         
   
 }

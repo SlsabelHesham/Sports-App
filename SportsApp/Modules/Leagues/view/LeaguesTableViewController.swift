@@ -7,18 +7,19 @@
 
 import UIKit
 import Kingfisher
-
+import Reachability
 class LeaguesTableViewController: UITableViewController {
     //var leagues: [League]? = []
     var leaguesViewModel: LeaguesViewModel?
+    var reachability: Reachability!
 
     var sport: String = ""
     override func viewDidLoad() {
         super.viewDidLoad()
+        reachability = try! Reachability()
         let nib = UINib(nibName: "LeaguesTableViewCell", bundle: nil)
         self.tableView.register(nib, forCellReuseIdentifier: LeaguesTableViewCell.identifire)
-        let fakeLeague = League(league_key: 1, league_name: "Kotb", league_logo: "football")
-        CoreDataHelper.shared.saveLeague(league: fakeLeague)
+        
 
         leaguesViewModel = LeaguesViewModel()
         leaguesViewModel?.bindResultToLeaguesViewController = { [weak self] in
@@ -66,17 +67,41 @@ class LeaguesTableViewController: UITableViewController {
         cell.leagueName.text = leaguesViewModel?.leagues?[indexPath.row].league_name
 
         cell.leagueImage.kf.setImage(with: URL(string: leaguesViewModel?.leagues?[indexPath.row].league_logo ?? ""))
+        
+        cell.contentView.layer.borderWidth = 0.5
+        cell.contentView.layer.borderColor = UIColor.systemGray2.cgColor
+        cell.contentView.layer.cornerRadius = 25
+        cell.contentView.layer.borderWidth = 1
+
 
 
         return cell
     }
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 90
+    }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        let leaguesDetailsViewControler = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "") as! CollectionViewController
+        if isInternetAvailable(){
+            let leaguesDetailsViewControler = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "") as! CollectionViewController
+        } else {
+            showAlert()
+        }
         
         
     }
+    
+    func isInternetAvailable() -> Bool {
+        return reachability.connection != .unavailable
+    }
+
+    func showAlert() {
+        let alert = UIAlertController(title: "No Internet Connection", message: "Please check your internet connection and try again.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+
+    
 
     /*
     // Override to support conditional editing of the table view.

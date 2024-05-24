@@ -62,11 +62,17 @@ class TeamDetailsViewController: UIViewController, UITableViewDelegate, UITableV
         cell.playerNumber.text = result?.player_number
 
         cell.playerLogo.kf.setImage(with: URL(string: result?.player_image ?? ""))
+        cell.contentView.layer.borderWidth = 0.5
+        cell.contentView.layer.borderColor = UIColor.systemGray2.cgColor
+        cell.contentView.layer.cornerRadius = 16
+        cell.contentView.layer.borderWidth = 1
 
 
         return cell
     }
-    
+     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 90
+    }
 
     /*
     // MARK: - Navigation

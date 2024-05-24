@@ -6,21 +6,27 @@
 //
 
 import UIKit
-
+import Reachability
 private let reuseIdentifier = "Cell"
 
 class SportsCollectionViewController: UICollectionViewController , UICollectionViewDelegateFlowLayout{
 
     let sports: [Sport] = [football, basketball, tennis, cricket]
+    var reachability: Reachability!
 
     override func viewWillAppear(_ animated: Bool) {
-        print("kotbbbb")
+       
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        print("kotb")
+        reachability = try! Reachability()
         collectionView.collectionViewLayout = UICollectionViewFlowLayout()
+        let fakeLeague = FavoriteLeague(league_key: 1, league_name: "Kotb", league_logo: "football.jpeg",sport_name: "football")
+        CoreDataHelper.shared.saveLeague(league: fakeLeague)
+        
+        let fakeLeague2 = FavoriteLeague(league_key: 1, league_name: "Kotb2", league_logo: "football.jpeg",sport_name: "football")
+        CoreDataHelper.shared.saveLeague(league: fakeLeague2)
     }
 
     /*
@@ -52,20 +58,64 @@ class SportsCollectionViewController: UICollectionViewController , UICollectionV
         
         //cell.sportName.text = league.league_name
         //cell.sportImage.image = UIImage(named: league.league_logo ?? "notSAved")
+        cell.contentView.layer.borderWidth = 0.5
+                cell.contentView.layer.borderColor = UIColor(named: "BackgroundColor")?.cgColor
+                cell.contentView.layer.cornerRadius = 20
+                cell.layer.cornerRadius = 20
+
 
         return cell
     }
+    
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        return CGSize(width: view.frame.width / 2.4, height: view.frame.width / 2)
+//    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width / 2.4, height: view.frame.width / 2)
-    }
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let leaguesViewControler = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "leaguesVC") as! LeaguesTableViewController
+            return CGSize(width: (collectionView.bounds.width*0.45), height: (collectionView.bounds.width*0.85))
+        }
         
-        leaguesViewControler.sport = sports[indexPath.row].name ?? ""
-        present(leaguesViewControler, animated: true, completion: nil)
+        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+            return 15
+        }
+        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+            return 0.1
+        }
+        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+            return UIEdgeInsets(top: 1, left: 10, bottom: 1, right: 10)
+        }
+    
+    
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//            let padding: CGFloat = 40
+//            let collectionViewSize = collectionView.frame.size.width - padding
+//            let collectionViewHeight = collectionView.frame.size.height - padding
+//            let cellHeight = collectionViewHeight / 2
+//            let cellWidth = collectionViewSize / 2
+//            return CGSize(width: cellWidth - padding, height: cellHeight)
+//        }
+    
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if isInternetAvailable(){
+            let leaguesViewControler = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "leaguesVC") as! LeaguesTableViewController
+            
+            leaguesViewControler.sport = sports[indexPath.row].name ?? ""
+            present(leaguesViewControler, animated: true, completion: nil)
+        } else {
+            showAlert()
+        }
     }
 
+    func isInternetAvailable() -> Bool {
+        return reachability.connection != .unavailable
+    }
 
+    func showAlert() {
+        let alert = UIAlertController(title: "No Internet Connection", message: "Please check your internet connection and try again.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
     // MARK: UICollectionViewDelegate
 
     /*

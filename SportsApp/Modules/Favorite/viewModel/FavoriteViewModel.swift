@@ -9,12 +9,16 @@ import Foundation
 
 class FavoriteViewModel{
     var bindResultToFavoriteViewController : (()->()) = {}
-    var leagues : [League]?{
+    var leagues : [FavoriteLeague]?{
         didSet{
             bindResultToFavoriteViewController()
         }
     }
     func getSavedLeagues(){
         self.leagues =  CoreDataHelper.shared.fetchSavedLeagues()
+    }
+    
+    func deleteLeague (league: FavoriteLeague){
+        CoreDataHelper.shared.deleteLeague(league: league)
     }
 }
