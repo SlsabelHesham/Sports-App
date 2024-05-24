@@ -35,7 +35,10 @@ class FavoriteTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         favoriteViewModel?.getSavedLeagues()
         self.tableView.reloadData()
+        reachability = try! Reachability()
     }
+        
+    
 
     // MARK: - Table view data source
 

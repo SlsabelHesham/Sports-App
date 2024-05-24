@@ -15,12 +15,12 @@ class SportsCollectionViewController: UICollectionViewController , UICollectionV
     var reachability: Reachability!
 
     override func viewWillAppear(_ animated: Bool) {
-       
+        reachability = try! Reachability()
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        reachability = try! Reachability()
+        
         collectionView.collectionViewLayout = UICollectionViewFlowLayout()
         let fakeLeague = FavoriteLeague(league_key: 1, league_name: "Kotb", league_logo: "football.jpeg",sport_name: "football")
         CoreDataHelper.shared.saveLeague(league: fakeLeague)
@@ -28,6 +28,7 @@ class SportsCollectionViewController: UICollectionViewController , UICollectionV
         let fakeLeague2 = FavoriteLeague(league_key: 1, league_name: "Kotb2", league_logo: "football.jpeg",sport_name: "football")
         CoreDataHelper.shared.saveLeague(league: fakeLeague2)
     }
+  
 
     /*
     // MARK: - Navigation

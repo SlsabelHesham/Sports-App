@@ -16,7 +16,7 @@ class LeaguesTableViewController: UITableViewController {
     var sport: String = ""
     override func viewDidLoad() {
         super.viewDidLoad()
-        reachability = try! Reachability()
+        
         let nib = UINib(nibName: "LeaguesTableViewCell", bundle: nil)
         self.tableView.register(nib, forCellReuseIdentifier: LeaguesTableViewCell.identifire)
         
@@ -46,6 +46,9 @@ class LeaguesTableViewController: UITableViewController {
             }
         }*/
 
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        reachability = try! Reachability()
     }
 
     // MARK: - Table view data source
@@ -84,18 +87,17 @@ class LeaguesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         if isInternetAvailable(){
-            let leaguesDetailsViewControler = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "") as! CollectionViewController
+            let leaguesDetailsViewControler = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LeagueDetails") as! CollectionViewController
+            leaguesDetailsViewControler.sport = self.sport
+            leaguesDetailsViewControler.leagueId = leaguesViewModel?.leagues?[indexPath.row].league_key
+
+            present(leaguesDetailsViewControler, animated: true, completion: nil)
         } else {
             showAlert()
         }
 
         
-        let leaguesDetailsViewControler = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LeagueDetails") as! CollectionViewController
-        leaguesDetailsViewControler.sport = self.sport
-        leaguesDetailsViewControler.leagueId = leaguesViewModel?.leagues?[indexPath.row].league_key
-
-        
-        present(leaguesDetailsViewControler, animated: true, completion: nil)
+       
         
     }
     
