@@ -6,20 +6,26 @@
 //
 
 import UIKit
-
+import Reachability
 
 class CollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+    var sport: String?
+    var leagueId: Int?
     var leaguesDetailsViewModel: LeagueDetailsViewModel?
+    var reachability: Reachability!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        reachability = try! Reachability()
         self.collectionView.delegate = self
-
+        self.collectionView.dataSource = self
+        
+        collectionView.register(CustomHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "HeaderView")
+        
         // Set up the compositional layout
         let layout = UICollectionViewCompositionalLayout { sectionIndex, environment in
             switch sectionIndex {
             case 0:
-                return self.UpcomingEventsSection()
+                return self.UpcomingEventsSection(withHeader: true)
             case 1:
                 return self.LatestResultsSection()
             case 2 :
@@ -40,14 +46,32 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
             }
             
         }
-        leaguesDetailsViewModel?.getLeagueUpcomingEvents(sport: "football")
-        leaguesDetailsViewModel?.getLeagueLatesResults(sport: "football")
-        leaguesDetailsViewModel?.getTeamsResults(sport: "football", leagueId: 152)
+        let dates = getDates()
+        leaguesDetailsViewModel?.getLeagueUpcomingEvents(sport: sport ?? "football", leagueId: leagueId ?? 0, fromDate: dates.currentDate, toDate: dates.nextYearDate)
+        leaguesDetailsViewModel?.getLeagueLatesResults(sport: sport ?? "football", leagueId: leagueId ?? 0, fromDate: dates.lastYearDate, toDate: dates.currentDate)
+        leaguesDetailsViewModel?.getTeamsResults(sport: sport ?? "football", leagueId: leagueId ?? 0)
     }
-    override func viewWillAppear(_ animated: Bool) {
-        leaguesDetailsViewModel?.getTeamsResults(sport: "football", leagueId: 152)
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if kind == UICollectionView.elementKindSectionHeader {
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "HeaderView", for: indexPath) as! CustomHeaderView
+            
+            switch indexPath.section {
+            case 0:
+                header.titleLabel.text = "Upcoming Events"
+            case 1:
+                header.titleLabel.text = "Latest Results"
+            case 2:
+                header.titleLabel.text = "Teams"
+            default:
+                header.titleLabel.text = "Section"
+            }
+            
+            return header
+        }
+        return UICollectionReusableView()
     }
-    func UpcomingEventsSection()-> NSCollectionLayoutSection {
+
+    func UpcomingEventsSection(withHeader: Bool)-> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1)
                                               , heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
@@ -74,6 +98,14 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
             }
         }
         
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(44))
+        let header = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: headerSize,
+            elementKind: UICollectionView.elementKindSectionHeader,
+            alignment: .top
+        )
+        section.boundarySupplementaryItems = [header]
+        
         return section
     }
     
@@ -94,7 +126,16 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                                                         , bottom: 10, trailing: 0)
         section.orthogonalScrollingBehavior = .continuous
 
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(44))
+        let header = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: headerSize,
+            elementKind: UICollectionView.elementKindSectionHeader,
+            alignment: .top
+        )
+        section.boundarySupplementaryItems = [header]
+        
         return section
+
     }
     func TeamsSection()->NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1)
@@ -111,8 +152,14 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 15
                                                         , bottom: 10, trailing: 15)
-        section.boundarySupplementaryItems = [
-            .init(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(30)), elementKind: "Header", alignment: .top)]
+        
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(44))
+        let header = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: headerSize,
+            elementKind: UICollectionView.elementKindSectionHeader,
+            alignment: .top
+        )
+        section.boundarySupplementaryItems = [header]
         
         return section
     }
@@ -163,7 +210,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
             return cell
 
         case 2:
-            print("ahly")
+            
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TeamsCell", for: indexPath) as! TeamsCollectionViewCell
             print(leaguesDetailsViewModel?.teams?.count)
             if let results = leaguesDetailsViewModel?.teams, indexPath.row < results.count {
@@ -223,12 +270,12 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
      
      }
      */
-    
+    /*
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         // Return the size for the header view
         return CGSize(width: collectionView.bounds.width, height: 50) // Adjust the height as needed
     }
-    
+    */
    /* override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
        // if kind == UICollectionView.elementKindSectionHeader {
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: FilterHeaderView.headerIdentifier, for: indexPath) as! FilterHeaderView
@@ -240,13 +287,27 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     */
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if (indexPath.section  == 2) {
-            let teamsViewControler = UIStoryboard(name: "TeamDetails", bundle: nil).instantiateViewController(withIdentifier: "teamDetails") as! TeamDetailsViewController
-            
-            teamsViewControler.team = leaguesDetailsViewModel?.teams?[indexPath.row] ?? Team()
-            present(teamsViewControler, animated: true, completion: nil)
-            
+            if isInternetAvailable(){
+                let teamsViewControler = UIStoryboard(name: "TeamDetails", bundle: nil).instantiateViewController(withIdentifier: "teamDetails") as! TeamDetailsViewController
+                
+                teamsViewControler.team = leaguesDetailsViewModel?.teams?[indexPath.row] ?? Team()
+                present(teamsViewControler, animated: true, completion: nil)
+                
+            } else {
+                showAlert()
+            }
         }
     }
+    func isInternetAvailable() -> Bool {
+        return reachability.connection != .unavailable
+    }
+
+    func showAlert() {
+        let alert = UIAlertController(title: "No Internet Connection", message: "Please check your internet connection and try again.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+
         
   
 }
@@ -297,3 +358,46 @@ class FilterHeaderView: UICollectionReusableView {
 }
 
 */
+
+func getDates() -> (currentDate: String, nextYearDate: String, lastYearDate: String) {
+    let currentYear = Date()
+    
+    let calendar = Calendar.current
+    let nextYear = calendar.date(byAdding: .year, value: 1, to: currentYear)!
+    let lastYear = calendar.date(byAdding: .year, value: -1, to: currentYear)!
+    
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd"
+
+    let currentDate = dateFormatter.string(from: currentYear)
+    let nextYearDate = dateFormatter.string(from: nextYear)
+    let lastYearDate = dateFormatter.string(from: lastYear)
+    
+    return (currentDate, nextYearDate, lastYearDate)
+}
+
+
+class CustomHeaderView: UICollectionReusableView {
+    let titleLabel = UILabel()
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupViews()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setupViews()
+    }
+
+    private func setupViews() {
+        addSubview(titleLabel)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 8),
+            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8)
+        ])
+    }
+}
