@@ -21,7 +21,7 @@ class LeaguesViewModel{
     }*/
     func getLeagues(sport: String) {
         let leagueRequest = LeagueRequest(sport: sport)
-        getDataFromNetwork(request: leagueRequest) { [weak self] (result: LeagueResult?) in
+        NetworkManager.getDataFromNetwork(request: leagueRequest) { [weak self] (result: LeagueResult?) in
             self?.leagues = result?.result
         }
     }

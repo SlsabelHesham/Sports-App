@@ -7,6 +7,7 @@
 
 import Foundation
 import Alamofire
+
 /*
 func getDataFromNetworkkk(sport: String, handler: @escaping (LeagueResult?) -> Void){
     let url = "https://apiv2.allsportsapi.com/\(sport.lowercased())/?met=Leagues&APIkey=\(Constants.api_key)"
@@ -154,21 +155,22 @@ struct LatestResultsRequest: Request {
     }
 }
 
-
-func getDataFromNetwork<T: Decodable>(request: Request, handler: @escaping (T?) -> Void) {
-    AF.request(request.url).responseData { response in
-        switch response.result {
-        case .success(let data):
-            do {
-                let result = try request.decode(data: data) as? T
-                handler(result)
-            } catch {
+class NetworkManager{
+    static func getDataFromNetwork<T: Decodable>(request: Request, handler: @escaping (T?) -> Void) {
+        AF.request(request.url).responseData { response in
+            switch response.result {
+            case .success(let data):
+                do {
+                    let result = try request.decode(data: data) as? T
+                    handler(result)
+                } catch {
+                    print("\(error.localizedDescription)")
+                    handler(nil)
+                }
+            case .failure(let error):
                 print("\(error.localizedDescription)")
                 handler(nil)
             }
-        case .failure(let error):
-            print("\(error.localizedDescription)")
-            handler(nil)
         }
     }
 }
