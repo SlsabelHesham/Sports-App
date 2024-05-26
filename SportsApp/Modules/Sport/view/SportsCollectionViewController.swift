@@ -22,11 +22,11 @@ class SportsCollectionViewController: UICollectionViewController , UICollectionV
         // Do any additional setup after loading the view.
         
         collectionView.collectionViewLayout = UICollectionViewFlowLayout()
-        let fakeLeague = FavoriteLeague(league_key: 1, league_name: "Kotb", league_logo: "football.jpeg",sport_name: "football")
-        CoreDataHelper.shared.saveLeague(league: fakeLeague)
-        
-        let fakeLeague2 = FavoriteLeague(league_key: 1, league_name: "Kotb2", league_logo: "football.jpeg",sport_name: "football")
-        CoreDataHelper.shared.saveLeague(league: fakeLeague2)
+//        let fakeLeague = FavoriteLeague(league_key: 1, league_name: "Kotb", league_logo: "football.jpeg",sport_name: "football")
+//        CoreDataHelper.shared.saveLeague(league: fakeLeague)
+//        
+//        let fakeLeague2 = FavoriteLeague(league_key: 1, league_name: "Kotb2", league_logo: "football.jpeg",sport_name: "football")
+//        CoreDataHelper.shared.saveLeague(league: fakeLeague2)
     }
   
 

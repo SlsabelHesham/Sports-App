@@ -33,7 +33,7 @@ class LeagueDetailsViewModel{
      */
     func getLeagueUpcomingEvents(sport: String, leagueId: Int, fromDate: String, toDate: String) {
         let upcomingEventsRequest = UpcomingEventsRequest(sport: sport, leagueId: leagueId, fromDate: fromDate, toDate: toDate)
-        getDataFromNetwork(request: upcomingEventsRequest) { [weak self] (events: EventResult?) in
+        NetworkManager.getDataFromNetwork(request: upcomingEventsRequest) { [weak self] (events: EventResult?) in
             self?.events = events?.result
         }
     }
@@ -47,7 +47,7 @@ class LeagueDetailsViewModel{
      */
     func getLeagueLatesResults(sport: String, leagueId: Int, fromDate: String, toDate: String) {
         let latestResultsRequest = LatestResultsRequest(sport: sport, leagueId: leagueId, fromDate: fromDate, toDate: toDate)
-        getDataFromNetwork(request: latestResultsRequest) { [weak self] (latestResults: EventResult?) in
+        NetworkManager.getDataFromNetwork(request: latestResultsRequest) { [weak self] (latestResults: EventResult?) in
             self?.latestResults = latestResults?.result
         }
     }
@@ -61,7 +61,7 @@ class LeagueDetailsViewModel{
      */
     func getTeamsResults(sport: String, leagueId: Int) {
         let teamsRequest = TeamRequest(sport: sport, leagueId: leagueId)
-        getDataFromNetwork(request: teamsRequest) { [weak self] (teams: TeamsResponse?) in
+        NetworkManager.getDataFromNetwork(request: teamsRequest) { [weak self] (teams: TeamsResponse?) in
             self?.teams = teams?.result
         }
     }
