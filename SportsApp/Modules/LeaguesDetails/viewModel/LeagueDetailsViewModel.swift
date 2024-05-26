@@ -9,6 +9,9 @@ import Foundation
 
 class LeagueDetailsViewModel{
     var bindResultToLeaguesDetailsViewController : (()->()) = {}
+    
+    //var bindDBViewController : (()->()) = {}
+    
     var events : [Event]?{
         didSet{
             bindResultToLeaguesDetailsViewController()
@@ -24,6 +27,28 @@ class LeagueDetailsViewModel{
             bindResultToLeaguesDetailsViewController()
         }
     }
+    
+    var leagues: [FavoriteLeague]?
+    
+        
+        
+        func insertFavouriteLeague(league: FavoriteLeague){
+            CoreDataHelper.shared.saveLeague(league: league)
+        }
+        
+      
+
+        
+        func deleteFavLeague(league: FavoriteLeague){
+            CoreDataHelper.shared.deleteLeague(league: league)
+        }
+    
+    func isLeagueFavorited(league: FavoriteLeague) -> Bool {
+        
+        return CoreDataHelper.shared.isLeagueFavorited(league: league)
+    }
+        
+    
     /*
      func getLeagueUpcomingEvents(sport: String){
      getUpcomingEventsFromNetwork(sport: sport) { [weak self] events in

@@ -13,11 +13,49 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     var leagueId: Int?
     var leaguesDetailsViewModel: LeagueDetailsViewModel?
     var reachability: Reachability!
+    
+    var league : FavoriteLeague!
+    var leagueName:String = ""
+    var leagueLogo:String = ""
+    
+    @IBAction func favBtn(_ sender: UIButton) {
+        print("button")
+        let favLeague = FavoriteLeague(league_key: leagueId, league_name: leagueName, league_logo: leagueLogo, sport_name: sport)
+        //leaguesDetailsViewModel?.isLeagueFavorited(league: favLeague)
+        
+        if ((self.leaguesDetailsViewModel?.isLeagueFavorited(league: favLeague)) != nil){
+            self.leaguesDetailsViewModel?.deleteFavLeague(league: favLeague)
+            favBtn.setImage(UIImage(systemName: "heart"), for: .normal)
+        } else {
+            self.leaguesDetailsViewModel?.insertFavouriteLeague(league: favLeague)
+            favBtn.setImage(UIImage(systemName: "heart.fill"), for: .selected)
+        }
+    }
+    
+    
+    @IBOutlet weak var favBtn: UIButton!
+    
+//    let favLeague = LeagueLocal(sport: self.sport, name: leagueName, logo: leagueLogo, key: leagueId)
+//            viewModel.isFavourite(leagueId: leagueId)
+//
+//            if self.viewModel.isFavourite{
+//                deleteFav()
+//              
+//            } else {
+//                viewModel.insertFavouriteLeague(league: favLeague)
+//                showProgress(message: "Added To Favourite")
+//            }
+    
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         reachability = try! Reachability()
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
+       
+        
         
         collectionView.register(CustomHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "HeaderView")
         
