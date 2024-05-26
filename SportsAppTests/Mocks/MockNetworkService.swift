@@ -8,10 +8,6 @@
 import Foundation
 @testable import SportsApp
 
-
-
-
-
 class MockNetworkService {
     var result = TeamsResponse()
     // true = error, false = no error

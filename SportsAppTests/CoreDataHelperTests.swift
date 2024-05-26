@@ -5,9 +5,6 @@
 //  Created by Mohamed Kotb Saied Kotb on 26/05/2024.
 //
 
-
-
-
 import XCTest
 import CoreData
 @testable import SportsApp
@@ -133,7 +130,32 @@ class CoreDataHelperTests: XCTestCase {
         XCTAssertEqual(fetchedEntities.count, 0)
     }
     
+    func testSaveDuplicateLeague() {
+        coreDataHelper.deleteAllLeagues()
+        let league = FavoriteLeague(league_key: 123, league_name: "Test League", league_logo: "https://example.com/logo.png", sport_name: "Football")
         
+        coreDataHelper.saveLeague(league: league)
+        coreDataHelper.saveLeague(league: league)
+        let appDelegate = Utility.appDelegete
+        let context = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FavouriteItem")
+        fetchRequest.predicate = NSPredicate(format: "sport_name = %@", league.sport_name ?? "")
+        
+        var fetchedResults: [NSManagedObject] = []
+        do {
+            fetchedResults = try context.fetch(fetchRequest) as! [NSManagedObject]
+        } catch {
+            XCTFail("Failed to fetch results")
+        }
+        XCTAssertEqual(fetchedResults.count, 2)
+    }
+
+            
+    func testFetchEmptyLeagues() {
+        coreDataHelper.deleteAllLeagues()
+        let savedLeagues = coreDataHelper.fetchSavedLeagues()
+        XCTAssertTrue(savedLeagues.isEmpty)
+    }
 }
 
 

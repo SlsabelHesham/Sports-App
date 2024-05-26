@@ -14,11 +14,6 @@ class LeaguesViewModel{
             bindResultToLeaguesViewController()
         }
     }
-    /*func getLeagues(sport: String){
-        getDataFromNetwork(sport: sport) { [weak self] leagues in
-            self?.leagues = leagues?.result
-        }
-    }*/
     func getLeagues(sport: String) {
         let leagueRequest = LeagueRequest(sport: sport)
         NetworkManager.getDataFromNetwork(request: leagueRequest) { [weak self] (result: LeagueResult?) in
