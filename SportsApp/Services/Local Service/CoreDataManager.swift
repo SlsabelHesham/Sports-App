@@ -88,4 +88,24 @@ class CoreDataHelper {
         
         return savedLeagues
     }
+    func deleteAllLeagues() {
+        let appDelegate = Utility.appDelegete
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FavouriteItem")
+        
+        do {
+            let results = try context.fetch(fetchRequest)
+            for object in results {
+                context.delete(object as! NSManagedObject)
+            }
+            try context.save()
+            print("All leagues deleted from Core Data")
+        } catch {
+            print("Error deleting all leagues from Core Data: \(error.localizedDescription)")
+        }
+    }
+
+    
+    
 }

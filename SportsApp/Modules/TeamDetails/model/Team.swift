@@ -114,7 +114,7 @@ import Foundation
 
 
 class TeamsResponse: Codable {
-    var result: [Team]
+    var result: [Team]?
 }
 
 class Team: Codable {
