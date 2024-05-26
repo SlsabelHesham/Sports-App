@@ -14,6 +14,7 @@ class LeaguesTableViewController: UITableViewController {
     var reachability: Reachability!
 
     var sport: String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -90,6 +91,9 @@ class LeaguesTableViewController: UITableViewController {
             let leaguesDetailsViewControler = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LeagueDetails") as! CollectionViewController
             leaguesDetailsViewControler.sport = self.sport
             leaguesDetailsViewControler.leagueId = leaguesViewModel?.leagues?[indexPath.row].league_key
+            leaguesDetailsViewControler.leagueName = leaguesViewModel?.leagues?[indexPath.row].league_name ?? "league name"
+            leaguesDetailsViewControler.leagueLogo = leaguesViewModel?.leagues?[indexPath.row].league_logo ?? "football.jpeg"
+            
 
             present(leaguesDetailsViewControler, animated: true, completion: nil)
         } else {
