@@ -10,7 +10,7 @@ import Reachability
 private let reuseIdentifier = "Cell"
 
 class SportsCollectionViewController: UICollectionViewController , UICollectionViewDelegateFlowLayout{
-
+    
     let sports: [Sport] = [football, basketball, tennis, cricket]
     var reachability: Reachability!
 
@@ -52,38 +52,46 @@ class SportsCollectionViewController: UICollectionViewController , UICollectionV
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! HomeScreenCell
 
+        cell.sportView.layer.cornerRadius = 20.0
         cell.sportName.text = sports[indexPath.row].name
-       // cell.sportImage.image = UIImage(named: "football")
+        cell.sportImage.image = sports[indexPath.row].image
         
        // let league = leagues[indexPath.item]
         
         //cell.sportName.text = league.league_name
         //cell.sportImage.image = UIImage(named: league.league_logo ?? "notSAved")
-        cell.contentView.layer.borderWidth = 0.5
+        /*cell.contentView.layer.borderWidth = 0.5
                 cell.contentView.layer.borderColor = UIColor(named: "BackgroundColor")?.cgColor
                 cell.contentView.layer.cornerRadius = 20
                 cell.layer.cornerRadius = 20
-
-
+*/
+        
         return cell
     }
     
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 //        return CGSize(width: view.frame.width / 2.4, height: view.frame.width / 2)
 //    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.bounds.width*0.45, height: collectionView.frame.width*0.40)
+    }
     
+    
+    /*
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
             return CGSize(width: (collectionView.bounds.width*0.45), height: (collectionView.bounds.width*0.85))
         }
-        
+     */
+        /*
         func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
             return 15
         }
         func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
             return 0.1
         }
+         */
         func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-            return UIEdgeInsets(top: 1, left: 10, bottom: 1, right: 10)
+            return UIEdgeInsets(top: 0.5, left: 1, bottom: 0.5, right: 1)
         }
     
     

@@ -9,6 +9,7 @@ import UIKit
 
 class HomeScreenCell: UICollectionViewCell {
     
+    @IBOutlet weak var sportView: UIView!
     @IBOutlet weak var sportName: UILabel!
     @IBOutlet weak var sportImage: UIImageView!
 }

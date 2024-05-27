@@ -8,7 +8,8 @@
 import UIKit
 import Reachability
 
-class CollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class LeaguesDetailsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
     var sport: String?
     var leagueId: Int?
     var leaguesDetailsViewModel: LeagueDetailsViewModel?
@@ -17,49 +18,41 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     var league : FavoriteLeague!
     var leagueName:String = ""
     var leagueLogo:String = ""
+
     
     @IBAction func favBtn(_ sender: UIButton) {
-        print("button")
-        let favLeague = FavoriteLeague(league_key: leagueId, league_name: leagueName, league_logo: leagueLogo, sport_name: sport)
-        //leaguesDetailsViewModel?.isLeagueFavorited(league: favLeague)
-        
-        if ((self.leaguesDetailsViewModel?.isLeagueFavorited(league: favLeague)) != nil){
-            self.leaguesDetailsViewModel?.deleteFavLeague(league: favLeague)
-            favBtn.setImage(UIImage(systemName: "heart"), for: .normal)
-        } else {
-            self.leaguesDetailsViewModel?.insertFavouriteLeague(league: favLeague)
-            favBtn.setImage(UIImage(systemName: "heart.fill"), for: .selected)
+        sender.isSelected.toggle()
+        if sender.isSelected{
+            self.leaguesDetailsViewModel?.insertFavouriteLeague(league: league)
+        }else{
+            self.leaguesDetailsViewModel?.deleteFavLeague(league: league)
         }
     }
+    @IBOutlet weak var leaguesCollectionView: UICollectionView!
     
     
     @IBOutlet weak var favBtn: UIButton!
     
-//    let favLeague = LeagueLocal(sport: self.sport, name: leagueName, logo: leagueLogo, key: leagueId)
-//            viewModel.isFavourite(leagueId: leagueId)
-//
-//            if self.viewModel.isFavourite{
-//                deleteFav()
-//              
-//            } else {
-//                viewModel.insertFavouriteLeague(league: favLeague)
-//                showProgress(message: "Added To Favourite")
-//            }
-    
-    
-    
-    
+    func isLeagueFavorited(league: FavoriteLeague) -> Bool {
+        return CoreDataHelper.shared.isLeagueFavorited(league: league)
+    }
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         reachability = try! Reachability()
-        self.collectionView.delegate = self
-        self.collectionView.dataSource = self
+        self.leaguesCollectionView.delegate = self
+        self.leaguesCollectionView.dataSource = self
        
+        league = FavoriteLeague(league_key: leagueId, league_name: leagueName, league_logo: leagueLogo, sport_name: sport)
+
         
+        favBtn.isSelected = self.isLeagueFavorited(league: league)
+        favBtn.setImage(UIImage(systemName: "heart.fill"), for: .selected)
+        favBtn.setImage(UIImage(systemName: "heart"), for: .normal)
+
         
-        collectionView.register(CustomHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "HeaderView")
+        leaguesCollectionView.register(CustomHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "HeaderView")
         
-        // Set up the compositional layout
         let layout = UICollectionViewCompositionalLayout { sectionIndex, environment in
             switch sectionIndex {
             case 0:
@@ -73,23 +66,20 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
             }
         }
 
-        collectionView.setCollectionViewLayout(layout, animated: true)
+        leaguesCollectionView.setCollectionViewLayout(layout, animated: true)
 
         leaguesDetailsViewModel = LeagueDetailsViewModel()
         leaguesDetailsViewModel?.bindResultToLeaguesDetailsViewController = { [weak self] in
             DispatchQueue.main.async {
-                
-                self?.collectionView.reloadData()
-
+                self?.leaguesCollectionView.reloadData()
             }
-            
         }
         let dates = getDates()
         leaguesDetailsViewModel?.getLeagueUpcomingEvents(sport: sport ?? "football", leagueId: leagueId ?? 0, fromDate: dates.currentDate, toDate: dates.nextYearDate)
         leaguesDetailsViewModel?.getLeagueLatesResults(sport: sport ?? "football", leagueId: leagueId ?? 0, fromDate: dates.lastYearDate, toDate: dates.currentDate)
         leaguesDetailsViewModel?.getTeamsResults(sport: sport ?? "football", leagueId: leagueId ?? 0)
     }
-    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionView.elementKindSectionHeader {
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "HeaderView", for: indexPath) as! CustomHeaderView
             
@@ -214,13 +204,14 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     
     // MARK: UICollectionViewDataSource
     
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 3
     }
+
     
     
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch indexPath.section {
         case 0:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EventsCell", for: indexPath) as! UpcomingEventsCollectionViewCell
@@ -265,7 +256,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         }
     }
 
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
         case 0:
             return leaguesDetailsViewModel?.events?.count ?? 0
@@ -323,7 +314,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         //}
     }
     */
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if (indexPath.section  == 2) {
             if isInternetAvailable(){
                 let teamsViewControler = UIStoryboard(name: "TeamDetails", bundle: nil).instantiateViewController(withIdentifier: "teamDetails") as! TeamDetailsViewController

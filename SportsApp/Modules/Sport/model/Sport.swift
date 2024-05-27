@@ -19,10 +19,10 @@ class Sport{
 }
 
 
-let footballImage = UIImage(named: "football.jpeg")!
-let basketballImage = UIImage(named: "football.jpeg")!
-let tennisImage = UIImage(named: "football.jpeg")!
-let cricketImage = UIImage(named: "football.jpeg")!
+let footballImage = UIImage(named: "football.png")!
+let basketballImage = UIImage(named: "basketball.png")!
+let tennisImage = UIImage(named: "tennis.png")!
+let cricketImage = UIImage(named: "cricket.png")!
 
 let football = Sport(name: "Football", image: footballImage)
 let basketball = Sport(name: "Basketball", image: basketballImage)
