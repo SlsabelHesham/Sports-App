@@ -72,10 +72,10 @@ class LeaguesTableViewController: UITableViewController {
 
         cell.leagueImage.kf.setImage(with: URL(string: leaguesViewModel?.leagues?[indexPath.row].league_logo ?? ""))
         
-        cell.contentView.layer.borderWidth = 0.5
-        cell.contentView.layer.borderColor = UIColor.systemGray2.cgColor
+        //cell.contentView.layer.borderWidth = 0.5
+        //cell.contentView.layer.borderColor = UIColor.systemGray2.cgColor
         cell.contentView.layer.cornerRadius = 25
-        cell.contentView.layer.borderWidth = 1
+        //cell.contentView.layer.borderWidth = 1
 
 
 
