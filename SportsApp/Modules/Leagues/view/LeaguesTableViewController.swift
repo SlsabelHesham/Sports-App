@@ -8,14 +8,19 @@
 import UIKit
 import Kingfisher
 import Reachability
-class LeaguesTableViewController: UITableViewController {
+class LeaguesTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    @IBOutlet weak var tableView: UITableView!
     //var leagues: [League]? = []
     var leaguesViewModel: LeaguesViewModel?
     var reachability: Reachability!
 
     var sport: String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
         
         let nib = UINib(nibName: "LeaguesTableViewCell", bundle: nil)
         self.tableView.register(nib, forCellReuseIdentifier: LeaguesTableViewCell.identifire)
@@ -53,52 +58,50 @@ class LeaguesTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
+     func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return leaguesViewModel?.leagues?.count ?? 0
     }
 
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: LeaguesTableViewCell.identifire, for: indexPath) as! LeaguesTableViewCell
 
         cell.leagueName.text = leaguesViewModel?.leagues?[indexPath.row].league_name
 
         cell.leagueImage.kf.setImage(with: URL(string: leaguesViewModel?.leagues?[indexPath.row].league_logo ?? ""))
         
-        cell.contentView.layer.borderWidth = 0.5
-        cell.contentView.layer.borderColor = UIColor.systemGray2.cgColor
-        cell.contentView.layer.cornerRadius = 25
-        cell.contentView.layer.borderWidth = 1
+        cell.secondView.layer.cornerRadius = 25
 
-
-
+        cell.leagueImage.layer.cornerRadius = 50
+        
+         cell.layoutMargins = UIEdgeInsets(top: 0.5, left: 1, bottom: 0.5, right: 1.5)
+    
         return cell
     }
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 90
+     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 128
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
+     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         if isInternetAvailable(){
-            let leaguesDetailsViewControler = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LeagueDetails") as! CollectionViewController
+            let leaguesDetailsViewControler = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LeagueDetails") as! LeaguesDetailsViewController
             leaguesDetailsViewControler.sport = self.sport
             leaguesDetailsViewControler.leagueId = leaguesViewModel?.leagues?[indexPath.row].league_key
-
+            leaguesDetailsViewControler.leagueName = leaguesViewModel?.leagues?[indexPath.row].league_name ?? "league name"
+            leaguesDetailsViewControler.leagueLogo = leaguesViewModel?.leagues?[indexPath.row].league_logo ?? "football.jpeg"
+            
+            leaguesDetailsViewControler.modalPresentationStyle = .fullScreen
             present(leaguesDetailsViewControler, animated: true, completion: nil)
         } else {
             showAlert()
         }
-
-        
-       
-        
     }
     
     func isInternetAvailable() -> Bool {

@@ -8,12 +8,15 @@
 import UIKit
 import Reachability
 
-class FavoriteTableViewController: UITableViewController {
+class FavoriteTableViewController: UIViewController , UITableViewDelegate, UITableViewDataSource {
+    @IBOutlet weak var tableView: UITableView!
     //var leagues: [League] = []
     var favoriteViewModel : FavoriteViewModel?
     var reachability: Reachability!
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
         reachability = try! Reachability()
         print("kotbbbbbbbbb")
         let nib = UINib(nibName: "LeaguesTableViewCell", bundle: nil)
@@ -42,18 +45,18 @@ class FavoriteTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
+     func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return favoriteViewModel?.leagues?.count ?? 0
     }
 
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: LeaguesTableViewCell.identifire, for: indexPath) as! LeaguesTableViewCell
 
         print(favoriteViewModel?.leagues?.count ?? -5)
@@ -62,15 +65,24 @@ class FavoriteTableViewController: UITableViewController {
         cell.leagueImage.kf.setImage(with: URL(string: favoriteViewModel?.leagues?[indexPath.row].league_logo ?? "football.jpeg"))
         print(favoriteViewModel?.leagues?[indexPath.row].sport_name ?? "oo")
         
-        cell.contentView.layer.borderWidth = 0.5
-        cell.contentView.layer.borderColor = UIColor.systemGray2.cgColor
-        cell.contentView.layer.cornerRadius = 16
+       // cell.contentView.layer.borderWidth = 0.5
+       // cell.contentView.layer.borderColor = UIColor.systemGray2.cgColor
+       // cell.contentView.layer.cornerRadius = 16
+        
+        cell.secondView.layer.cornerRadius = 25
+
+        cell.leagueImage.layer.cornerRadius = 50
+        
+         cell.layoutMargins = UIEdgeInsets(top: 0.5, left: 1, bottom: 0.5, right: 1.5)
 
 
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+       return 128
+   }
+     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
             if editingStyle == .delete {
                 confirmDeleteItem(at: indexPath)
             }
@@ -89,11 +101,11 @@ class FavoriteTableViewController: UITableViewController {
             let item = favoriteViewModel?.leagues?[indexPath.row] ?? FavoriteLeague(league_key: -1, league_name: "", league_logo: "",sport_name: "")
             favoriteViewModel?.deleteLeague(league: item)
             favoriteViewModel?.leagues?.remove(at: indexPath.row)
-            tableView.beginUpdates()
-            tableView.deleteRows(at: [indexPath], with: .automatic)
-            tableView.endUpdates()
+            self.tableView.beginUpdates()
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            self.tableView.endUpdates()
         }
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
             tableView.deselectRow(at: indexPath, animated: true)
             
             if isInternetAvailable() {
