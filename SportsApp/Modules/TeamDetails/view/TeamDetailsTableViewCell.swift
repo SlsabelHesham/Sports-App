@@ -9,6 +9,8 @@ import UIKit
 
 class TeamDetailsTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var playerView: UIView!
+    
     @IBOutlet weak var playerLogo: UIImageView!
     
     @IBOutlet weak var playerName: UILabel!

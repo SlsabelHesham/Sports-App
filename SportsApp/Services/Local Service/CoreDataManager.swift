@@ -106,6 +106,20 @@ class CoreDataHelper {
         }
     }
 
-    
+    func isLeagueFavorited(league: FavoriteLeague) -> Bool {
+        let appDelegate = Utility.appDelegete
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let request: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "FavouriteItem")
+        request.predicate = NSPredicate(format: "title == %@", league.league_name ?? "no data")
+        
+        do {
+            let count = try context.count(for: request)
+            return count > 0
+        } catch {
+            print("Error checking if league is favorited: \(error.localizedDescription)")
+            return false
+        }
+    }
     
 }

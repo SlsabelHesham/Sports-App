@@ -9,6 +9,7 @@ import UIKit
 import Kingfisher
 
 class TeamDetailsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    @IBOutlet weak var teamView: UIView!
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -25,6 +26,8 @@ class TeamDetailsViewController: UIViewController, UITableViewDelegate, UITableV
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
+        teamView.layer.cornerRadius = 25
+        tableView.contentInset = UIEdgeInsets()
         // Do any additional setup after loading the view.
         viewModel = TeamDetailsViewModel()
         viewModel?.bindResultToTeamDetailsViewController = { [weak self] in
@@ -62,16 +65,16 @@ class TeamDetailsViewController: UIViewController, UITableViewDelegate, UITableV
         cell.playerNumber.text = result?.player_number
 
         cell.playerLogo.kf.setImage(with: URL(string: result?.player_image ?? ""))
-        cell.contentView.layer.borderWidth = 0.5
-        cell.contentView.layer.borderColor = UIColor.systemGray2.cgColor
-        cell.contentView.layer.cornerRadius = 16
-        cell.contentView.layer.borderWidth = 1
-
-
+        cell.contentView.layer.cornerRadius = 25
+        cell.playerLogo.layer.cornerRadius = 25
+        cell.playerView.layer.cornerRadius = 25
+        cell.layer.borderWidth = 5
+        cell.layer.borderColor = cell.contentView.backgroundColor?.cgColor
+        
         return cell
     }
      func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 90
+        return 120
     }
 
     /*

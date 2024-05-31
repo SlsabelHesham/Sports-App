@@ -9,6 +9,8 @@ import UIKit
 
 class LeaguesTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var mainView: UIView!
+    @IBOutlet weak var secondView: UIView!
     static let identifire = "LeaguesCell"
 
     @IBOutlet weak var leagueName: UILabel!
