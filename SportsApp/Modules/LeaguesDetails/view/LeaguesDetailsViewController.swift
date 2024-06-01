@@ -247,6 +247,9 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDelegate, 
                     cell.team1ImgR.kf.setImage(with: URL(string: result.home_team_logo ?? ""))
                     cell.team2ImgR.kf.setImage(with: URL(string: result.away_team_logo ?? ""))
                 }
+                cell.layer.borderWidth = 5
+                cell.layer.borderColor = cell.contentView.backgroundColor?.cgColor
+
 
             }
             return cell
