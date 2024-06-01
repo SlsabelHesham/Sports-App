@@ -120,26 +120,44 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="heart" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="mVA-dQ-iSP">
+                                <rect key="frame" x="66.666666666666686" y="342.66666666666669" width="260" height="193.00000000000006"/>
+                                <color key="tintColor" white="0.0" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="No Favourites Yet!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lOM-3k-CR8">
+                                <rect key="frame" x="66" y="513" width="260" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Hmv-qv-zyM"/>
                         <color key="backgroundColor" red="0.70419073099999996" green="0.70471400019999997" blue="0.7211013436" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="ARB-I0-VjE" firstAttribute="top" secondItem="cSX-xt-ZMI" secondAttribute="bottom" id="5ZB-gM-f9A"/>
-                            <constraint firstItem="cSX-xt-ZMI" firstAttribute="leading" secondItem="Hmv-qv-zyM" secondAttribute="leading" constant="32" id="eDq-ma-Sr0"/>
-                            <constraint firstItem="cSX-xt-ZMI" firstAttribute="top" secondItem="Km7-2b-OCs" secondAttribute="topMargin" id="lG0-TP-EEC"/>
+                            <constraint firstItem="ARB-I0-VjE" firstAttribute="top" secondItem="cSX-xt-ZMI" secondAttribute="bottom" id="666-vL-w3N"/>
+                            <constraint firstItem="cSX-xt-ZMI" firstAttribute="leading" secondItem="Hmv-qv-zyM" secondAttribute="leading" constant="32" id="Gs4-Bq-uph"/>
+                            <constraint firstItem="mVA-dQ-iSP" firstAttribute="width" secondItem="Km7-2b-OCs" secondAttribute="width" multiplier="0.661578" id="Opd-fR-4PE"/>
+                            <constraint firstItem="mVA-dQ-iSP" firstAttribute="centerX" secondItem="Hmv-qv-zyM" secondAttribute="centerX" id="Yq6-gk-1gM"/>
+                            <constraint firstItem="cSX-xt-ZMI" firstAttribute="top" secondItem="Hmv-qv-zyM" secondAttribute="top" id="ZNd-Kt-Zep"/>
+                            <constraint firstItem="mVA-dQ-iSP" firstAttribute="centerY" secondItem="Hmv-qv-zyM" secondAttribute="centerY" id="bsp-wB-frf"/>
+                            <constraint firstItem="mVA-dQ-iSP" firstAttribute="height" secondItem="Km7-2b-OCs" secondAttribute="height" multiplier="0.230047" id="l9M-xd-n26"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="noFavImg" destination="mVA-dQ-iSP" id="Jxd-0D-LC6"/>
+                        <outlet property="noFavLabel" destination="lOM-3k-CR8" id="mBL-w1-yP7"/>
                         <outlet property="tableView" destination="ARB-I0-VjE" id="jZ5-wo-o8i"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SdS-6G-eqq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1650" y="13"/>
+            <point key="canvasLocation" x="1649.6183206106869" y="12.67605633802817"/>
         </scene>
     </scenes>
     <resources>
         <image name="football.jpeg" width="259" height="194"/>
+        <image name="heart" catalog="system" width="32" height="32"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -24,6 +24,13 @@ class SportsCollectionViewController: UIViewController, UICollectionViewDelegate
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        self.tabBarController?.tabBar.barTintColor = UIColor.black
+        self.tabBarController?.tabBar.tintColor = UIColor.black
+        if let items = self.tabBarController?.tabBar.items, items.count >= 2 {
+            items[1].image = UIImage(systemName: "heart")
+            items[1].title = "Favourites"
+        }
+        
         if let collectionView = collectionView {
             collectionView.collectionViewLayout = UICollectionViewFlowLayout()
             collectionView.dataSource = self
@@ -64,10 +71,13 @@ class SportsCollectionViewController: UIViewController, UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if isInternetAvailable() {
-            let leaguesViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "leaguesVC") as! LeaguesTableViewController
+                let leaguesViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "leaguesVC") as! LeaguesTableViewController
+                
+                leaguesViewController.sport = sports[indexPath.row].name ?? "football"
+                leaguesViewController.modalPresentationStyle = .fullScreen
+                
+                present(leaguesViewController, animated: true, completion: nil)
             
-            leaguesViewController.sport = sports[indexPath.row].name ?? "football"
-            present(leaguesViewController, animated: true, completion: nil)
         } else {
             showAlert()
         }
@@ -82,4 +92,5 @@ class SportsCollectionViewController: UIViewController, UICollectionViewDelegate
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
     }
+    
 }
