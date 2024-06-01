@@ -9,6 +9,9 @@ import UIKit
 import Kingfisher
 import Reachability
 class LeaguesTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    @IBAction func back(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
     @IBOutlet weak var tableView: UITableView!
     //var leagues: [League]? = []
     var leaguesViewModel: LeaguesViewModel?
@@ -74,13 +77,16 @@ class LeaguesTableViewController: UIViewController, UITableViewDelegate, UITable
 
         cell.leagueName.text = leaguesViewModel?.leagues?[indexPath.row].league_name
 
-        cell.leagueImage.kf.setImage(with: URL(string: leaguesViewModel?.leagues?[indexPath.row].league_logo ?? ""))
+         cell.leagueImage.kf.setImage(
+             with: URL(string: leaguesViewModel?.leagues?[indexPath.row].league_logo ?? ""),
+             placeholder: UIImage(named: "league")
+         )
         
         cell.secondView.layer.cornerRadius = 25
 
         cell.leagueImage.layer.cornerRadius = 50
         
-         cell.layoutMargins = UIEdgeInsets(top: 0.5, left: 1, bottom: 0.5, right: 1.5)
+        cell.layoutMargins = UIEdgeInsets(top: 0.5, left: 1, bottom: 0.5, right: 1.5)
     
         return cell
     }
@@ -94,6 +100,7 @@ class LeaguesTableViewController: UIViewController, UITableViewDelegate, UITable
             let leaguesDetailsViewControler = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LeagueDetails") as! LeaguesDetailsViewController
             leaguesDetailsViewControler.sport = self.sport
             leaguesDetailsViewControler.leagueId = leaguesViewModel?.leagues?[indexPath.row].league_key
+            print(leaguesViewModel?.leagues?[indexPath.row].league_key ??  "value")
             leaguesDetailsViewControler.leagueName = leaguesViewModel?.leagues?[indexPath.row].league_name ?? "league name"
             leaguesDetailsViewControler.leagueLogo = leaguesViewModel?.leagues?[indexPath.row].league_logo ?? "football.jpeg"
             
