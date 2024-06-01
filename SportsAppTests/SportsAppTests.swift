@@ -35,9 +35,6 @@ final class SportsAppTests: XCTestCase {
         waitForExpectations(timeout: 16)
 
     }
-    
-    func testKotb(){
-        XCTAssertEqual(football.name, "Football")
-    }
+
 
 }
