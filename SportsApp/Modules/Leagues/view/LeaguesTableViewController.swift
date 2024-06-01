@@ -74,7 +74,10 @@ class LeaguesTableViewController: UIViewController, UITableViewDelegate, UITable
 
         cell.leagueName.text = leaguesViewModel?.leagues?[indexPath.row].league_name
 
-        cell.leagueImage.kf.setImage(with: URL(string: leaguesViewModel?.leagues?[indexPath.row].league_logo ?? ""))
+         cell.leagueImage.kf.setImage(
+             with: URL(string: leaguesViewModel?.leagues?[indexPath.row].league_logo ?? ""),
+             placeholder: UIImage(named: "league")
+         )
         
         cell.secondView.layer.cornerRadius = 25
 
@@ -94,10 +97,11 @@ class LeaguesTableViewController: UIViewController, UITableViewDelegate, UITable
             let leaguesDetailsViewControler = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LeagueDetails") as! LeaguesDetailsViewController
             leaguesDetailsViewControler.sport = self.sport
             leaguesDetailsViewControler.leagueId = leaguesViewModel?.leagues?[indexPath.row].league_key
+            print(leaguesViewModel?.leagues?[indexPath.row].league_key ??  "value")
             leaguesDetailsViewControler.leagueName = leaguesViewModel?.leagues?[indexPath.row].league_name ?? "league name"
             leaguesDetailsViewControler.leagueLogo = leaguesViewModel?.leagues?[indexPath.row].league_logo ?? "football.jpeg"
             
-            leaguesDetailsViewControler.modalPresentationStyle = .fullScreen
+            //leaguesDetailsViewControler.modalPresentationStyle = .fullScreen
             present(leaguesDetailsViewControler, animated: true, completion: nil)
         } else {
             showAlert()

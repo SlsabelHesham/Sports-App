@@ -64,7 +64,9 @@ class TeamDetailsViewController: UIViewController, UITableViewDelegate, UITableV
         cell.playerName.text = result?.player_name
         cell.playerNumber.text = result?.player_number
 
-        cell.playerLogo.kf.setImage(with: URL(string: result?.player_image ?? ""))
+        cell.playerLogo.kf.setImage(with: URL(string: result?.player_image ?? ""),
+             placeholder: UIImage(named: "player")
+        )
         cell.contentView.layer.cornerRadius = 25
         cell.playerLogo.layer.cornerRadius = 25
         cell.playerView.layer.cornerRadius = 25

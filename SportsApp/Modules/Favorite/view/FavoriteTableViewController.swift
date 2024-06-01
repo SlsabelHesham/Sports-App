@@ -13,6 +13,8 @@ class FavoriteTableViewController: UIViewController , UITableViewDelegate, UITab
     //var leagues: [League] = []
     var favoriteViewModel : FavoriteViewModel?
     var reachability: Reachability!
+    
+    var sport: String = "football"
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.delegate = self
@@ -23,6 +25,7 @@ class FavoriteTableViewController: UIViewController , UITableViewDelegate, UITab
         self.tableView.register(nib, forCellReuseIdentifier: LeaguesTableViewCell.identifire)
         
         favoriteViewModel = FavoriteViewModel()
+      
         //leagues = CoreDataHelper.shared.fetchSavedLeagues()
             favoriteViewModel?.bindResultToFavoriteViewController = { [weak self] in
                 DispatchQueue.main.async {
@@ -105,15 +108,21 @@ class FavoriteTableViewController: UIViewController , UITableViewDelegate, UITab
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
             self.tableView.endUpdates()
         }
-     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            tableView.deselectRow(at: indexPath, animated: true)
-            
-            if isInternetAvailable() {
-                // Navigate to leagues details
-            } else {
-                showAlert()
-            }
-        }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+       
+       if isInternetAvailable(){
+           let leaguesDetailsViewControler = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LeagueDetails") as! LeaguesDetailsViewController
+           leaguesDetailsViewControler.sport = self.sport
+           leaguesDetailsViewControler.leagueId = favoriteViewModel?.leagues?[indexPath.row].league_key
+           leaguesDetailsViewControler.leagueName = favoriteViewModel?.leagues?[indexPath.row].league_name ?? "league name"
+           leaguesDetailsViewControler.leagueLogo = favoriteViewModel?.leagues?[indexPath.row].league_logo ?? "football.jpeg"
+           
+           leaguesDetailsViewControler.modalPresentationStyle = .fullScreen
+           present(leaguesDetailsViewControler, animated: true, completion: nil)
+       } else {
+           showAlert()
+       }
+   }
 
         func isInternetAvailable() -> Bool {
             return reachability.connection != .unavailable

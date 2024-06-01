@@ -215,13 +215,28 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDelegate, 
         switch indexPath.section {
         case 0:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EventsCell", for: indexPath) as! UpcomingEventsCollectionViewCell
+            print("test")
             if let events = leaguesDetailsViewModel?.events, indexPath.row < events.count {
                 let event = events[indexPath.row]
-                cell.team1Name.text = event.event_home_team
-                cell.team2Name.text = event.event_away_team
-                cell.date.text = event.event_date
-                cell.team1Img.kf.setImage(with: URL(string: event.home_team_logo ?? ""))
-                cell.team2Img.kf.setImage(with: URL(string: event.away_team_logo ?? ""))
+                print("jjj\(event.event_second_player)")
+                if  sport == "Tennis"{
+                    print("if")
+                    cell.team1Name.text = event.event_first_player
+                    cell.team2Name.text = event.event_second_player
+                    print(event.event_second_player ?? "false")
+                    print(event.event_second_player ?? "false")
+                    cell.date.text = event.event_date
+                    cell.team1Img.kf.setImage(with: URL(string: event.event_first_player_logo ?? ""),
+                        placeholder: UIImage(named: "player")
+                    )
+                    cell.team2Img.kf.setImage(with: URL(string: event.event_second_player_logo ?? ""),placeholder: UIImage(named: "player"))
+                } else{
+                    cell.team1Name.text = event.event_home_team
+                    cell.team2Name.text = event.event_away_team
+                    cell.date.text = event.event_date
+                    cell.team1Img.kf.setImage(with: URL(string: event.home_team_logo ?? ""))
+                    cell.team2Img.kf.setImage(with: URL(string: event.away_team_logo ?? ""))
+                }
             }
             return cell
             
@@ -229,12 +244,27 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDelegate, 
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ResultsCell", for: indexPath) as! LatestResultsCollectionViewCell
             if let results = leaguesDetailsViewModel?.latestResults, indexPath.row < results.count {
                 let result = results[indexPath.row]
-                cell.team1NameR.text = result.event_home_team
-                cell.team2NameR.text = result.event_away_team
-                cell.dateR.text = result.event_date
-                cell.resultR.text = result.event_final_result
-                cell.team1ImgR.kf.setImage(with: URL(string: result.home_team_logo ?? ""))
-                cell.team2ImgR.kf.setImage(with: URL(string: result.away_team_logo ?? ""))
+                if self.sport == "Tennis"{
+                    print("if")
+                    cell.team1NameR.text = result.event_first_player
+                    cell.team2NameR.text = result.event_second_player
+                    print(result.event_second_player ?? "false")
+                    print(result.event_second_player ?? "false")
+                    cell.dateR.text = result.event_date
+                    cell.resultR.text = result.event_final_result
+                    cell.team1ImgR.kf.setImage(with: URL(string: result.event_first_player_logo ?? "football.png"),
+                                               placeholder: UIImage(named: "player"))
+                    cell.team2ImgR.kf.setImage(with: URL(string: result.event_second_player_logo ?? "football.png"),
+                                               placeholder: UIImage(named: "player"))
+                    print(result.event_first_player_logo ?? "default value")
+                } else {
+                    cell.team1NameR.text = result.event_home_team
+                    cell.team2NameR.text = result.event_away_team
+                    cell.dateR.text = result.event_date
+                    cell.resultR.text = result.event_final_result
+                    cell.team1ImgR.kf.setImage(with: URL(string: result.home_team_logo ?? ""))
+                    cell.team2ImgR.kf.setImage(with: URL(string: result.away_team_logo ?? ""))
+                }
             }
             return cell
 
@@ -247,7 +277,9 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDelegate, 
                 print(result.players?.count)
                
                 
-                cell.teamsLogo.kf.setImage(with: URL(string: result.team_logo ?? ""))
+                cell.teamsLogo.kf.setImage(with: URL(string: result.team_logo ?? ""),
+                    placeholder: UIImage(named: "team")
+                )
             }
             return cell
             
