@@ -83,7 +83,7 @@ class LeaguesTableViewController: UIViewController, UITableViewDelegate, UITable
 
         cell.leagueImage.layer.cornerRadius = 50
         
-         cell.layoutMargins = UIEdgeInsets(top: 0.5, left: 1, bottom: 0.5, right: 1.5)
+        cell.layoutMargins = UIEdgeInsets(top: 0.5, left: 1, bottom: 0.5, right: 1.5)
     
         return cell
     }
