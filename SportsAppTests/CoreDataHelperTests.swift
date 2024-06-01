@@ -158,15 +158,13 @@ class CoreDataHelperTests: XCTestCase {
     }
     
     func testIsLeagueFavorited() {
-        // Given
         let appDelegate = Utility.appDelegete
         let context = appDelegate.persistentContainer.viewContext
         let entity = NSEntityDescription.entity(forEntityName: "FavouriteItem", in: context)!
         
-        let league1 = FavoriteLeague(league_key: 123, league_name: "Test League 1", league_logo: "https://example.com/logo.png", sport_name: "Football")
-        let league2 = FavoriteLeague(league_key: 456, league_name: "Test League 2", league_logo: "https://example.com/logo2.png", sport_name: "Basketball")
+        let league1 = FavoriteLeague(league_key: 123, league_name: "League 1", league_logo: "logo.png", sport_name: "Football")
+        let league2 = FavoriteLeague(league_key: 456, league_name: "League 2", league_logo: "logo2.png", sport_name: "Basketball")
         
-        // Create and save favorite items
         let favoriteItem1 = NSManagedObject(entity: entity, insertInto: context)
         favoriteItem1.setValue(league1.league_name, forKey: "title")
         
@@ -176,37 +174,27 @@ class CoreDataHelperTests: XCTestCase {
         do {
             try context.save()
         } catch {
-            XCTFail("Failed to save favorite items: \(error.localizedDescription)")
+            XCTFail("Failed to save favorite item \(error.localizedDescription)")
         }
         
-        // When
-        // Test with existing league
         let isLeague1Favorited = coreDataHelper.isLeagueFavorited(league: league1)
         let isLeague2Favorited = coreDataHelper.isLeagueFavorited(league: league2)
         
-        // Test with non-existent league
-        let nonExistentLeague = FavoriteLeague(league_key: 789, league_name: "Non-Existent League", league_logo: "", sport_name: "")
+        let nonExistentLeague = FavoriteLeague(league_key: 88, league_name: "No League", league_logo: "", sport_name: "")
         let isNonExistentLeagueFavorited = coreDataHelper.isLeagueFavorited(league: nonExistentLeague)
         
-        // Then
-        XCTAssertTrue(isLeague1Favorited, "League 1 should be favorited")
-        XCTAssertTrue(isLeague2Favorited, "League 2 should be favorited")
-        XCTAssertFalse(isNonExistentLeagueFavorited, "Non-existent league should not be favorited")
+        XCTAssertTrue(isLeague1Favorited, "League 1 is not favorit")
+        XCTAssertTrue(isLeague2Favorited, "League 2 is not favorit")
+        XCTAssertFalse(isNonExistentLeagueFavorited, "League is favourite")
     }
     func testPersistentContainerInitialization() {
-        // Given
         let appDelegate = Utility.appDelegete
-        
-        // When
         let container = appDelegate.persistentContainer
         
-        // Then
-        XCTAssertNotNil(container, "The persistent container should not be nil")
-        XCTAssertNotNil(container.persistentStoreCoordinator, "The persistent store coordinator should not be nil")
-        
-        // Try loading a context to ensure it's functional
+        XCTAssertNotNil(container, "persistent is nil")
+        XCTAssertNotNil(container.persistentStoreCoordinator, "persistent is nil")
         let context = container.viewContext
-        XCTAssertNotNil(context, "The view context should not be nil")
+        XCTAssertNotNil(context, "View context is nil")
     }
     
 }

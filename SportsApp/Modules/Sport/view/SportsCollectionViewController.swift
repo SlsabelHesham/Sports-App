@@ -12,8 +12,7 @@ private let reuseIdentifier = "sportsCell"
 class SportsCollectionViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     @IBOutlet weak var collectionView: UICollectionView!
     
-    let sports: [Sport] = [football, basketball, tennis, cricket, vollyball, hockey, soccer, baseball]
-    let mainSports = ["football","basketball","tennis","cricket"]
+    let sports: [Sport] = [football, basketball, tennis, cricket]
     var reachability: Reachability!
     
     override func viewWillAppear(_ animated: Bool) {
@@ -72,17 +71,13 @@ class SportsCollectionViewController: UIViewController, UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if isInternetAvailable() {
-            if(mainSports.contains( (sports[indexPath.row].name ?? "").lowercased() )){
                 let leaguesViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "leaguesVC") as! LeaguesTableViewController
                 
                 leaguesViewController.sport = sports[indexPath.row].name ?? "football"
                 leaguesViewController.modalPresentationStyle = .fullScreen
                 
                 present(leaguesViewController, animated: true, completion: nil)
-            }
-            else{
-                noDataAlert()
-            }
+            
         } else {
             showAlert()
         }
@@ -97,9 +92,5 @@ class SportsCollectionViewController: UIViewController, UICollectionViewDelegate
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
     }
-    func noDataAlert() {
-        let alert = UIAlertController(title: "No Leagues Available!", message: "No leagues available for this sport yet.", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
-    }
+    
 }
