@@ -23,8 +23,17 @@ let footballImage = UIImage(named: "football.png")!
 let basketballImage = UIImage(named: "basketball.png")!
 let tennisImage = UIImage(named: "tennis.png")!
 let cricketImage = UIImage(named: "cricket.png")!
+let vollyballImage = UIImage(named: "volleybal.png")!
+let hockeyImage = UIImage(named: "hockey.png")!
+let soccerImage = UIImage(named: "soccer.png")!
+let baseballImage = UIImage(named: "baseball.png")!
+
 
 let football = Sport(name: "Football", image: footballImage)
 let basketball = Sport(name: "Basketball", image: basketballImage)
 let tennis = Sport(name: "Tennis", image: tennisImage)
 let cricket = Sport(name: "Cricket", image: cricketImage)
+let vollyball = Sport(name: "Volleyball", image: vollyballImage)
+let hockey = Sport(name: "Hockey", image: hockeyImage)
+let soccer = Sport(name: "Soccer", image: soccerImage)
+let baseball = Sport(name: "Baseball", image: baseballImage)

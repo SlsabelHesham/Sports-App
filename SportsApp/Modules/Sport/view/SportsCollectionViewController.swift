@@ -12,7 +12,8 @@ private let reuseIdentifier = "sportsCell"
 class SportsCollectionViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     @IBOutlet weak var collectionView: UICollectionView!
     
-    let sports: [Sport] = [football, basketball, tennis, cricket]
+    let sports: [Sport] = [football, basketball, tennis, cricket, vollyball, hockey, soccer, baseball]
+    let mainSports = ["football","basketball","tennis","cricket"]
     var reachability: Reachability!
     
     override func viewWillAppear(_ animated: Bool) {
@@ -23,6 +24,13 @@ class SportsCollectionViewController: UIViewController, UICollectionViewDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        self.tabBarController?.tabBar.barTintColor = UIColor.black
+        self.tabBarController?.tabBar.tintColor = UIColor.black
+        if let items = self.tabBarController?.tabBar.items, items.count >= 2 {
+            items[1].image = UIImage(systemName: "heart")
+            items[1].title = "Favourites"
+        }
         
         if let collectionView = collectionView {
             collectionView.collectionViewLayout = UICollectionViewFlowLayout()
@@ -64,10 +72,17 @@ class SportsCollectionViewController: UIViewController, UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if isInternetAvailable() {
-            let leaguesViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "leaguesVC") as! LeaguesTableViewController
-            
-            leaguesViewController.sport = sports[indexPath.row].name ?? "football"
-            present(leaguesViewController, animated: true, completion: nil)
+            if(mainSports.contains( (sports[indexPath.row].name ?? "").lowercased() )){
+                let leaguesViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "leaguesVC") as! LeaguesTableViewController
+                
+                leaguesViewController.sport = sports[indexPath.row].name ?? "football"
+                leaguesViewController.modalPresentationStyle = .fullScreen
+                
+                present(leaguesViewController, animated: true, completion: nil)
+            }
+            else{
+                noDataAlert()
+            }
         } else {
             showAlert()
         }
@@ -79,6 +94,11 @@ class SportsCollectionViewController: UIViewController, UICollectionViewDelegate
     
     func showAlert() {
         let alert = UIAlertController(title: "No Internet Connection", message: "Please check your internet connection and try again.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    func noDataAlert() {
+        let alert = UIAlertController(title: "No Leagues Available!", message: "No leagues available for this sport yet.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
     }

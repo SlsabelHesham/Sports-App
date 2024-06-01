@@ -15,5 +15,6 @@ class UpcomingEventsCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var team2Img: UIImageView!
     @IBOutlet weak var team1Img: UIImageView!
   
+    @IBOutlet weak var noUpcoming: UILabel!
     
 }

@@ -9,6 +9,9 @@ import UIKit
 import Kingfisher
 import Reachability
 class LeaguesTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    @IBAction func back(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
     @IBOutlet weak var tableView: UITableView!
     //var leagues: [League]? = []
     var leaguesViewModel: LeaguesViewModel?
@@ -101,7 +104,7 @@ class LeaguesTableViewController: UIViewController, UITableViewDelegate, UITable
             leaguesDetailsViewControler.leagueName = leaguesViewModel?.leagues?[indexPath.row].league_name ?? "league name"
             leaguesDetailsViewControler.leagueLogo = leaguesViewModel?.leagues?[indexPath.row].league_logo ?? "football.jpeg"
             
-            //leaguesDetailsViewControler.modalPresentationStyle = .fullScreen
+            leaguesDetailsViewControler.modalPresentationStyle = .fullScreen
             present(leaguesDetailsViewControler, animated: true, completion: nil)
         } else {
             showAlert()

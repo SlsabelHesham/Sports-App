@@ -9,6 +9,8 @@ import UIKit
 import Reachability
 
 class FavoriteTableViewController: UIViewController , UITableViewDelegate, UITableViewDataSource {
+    @IBOutlet weak var noFavImg: UIImageView!
+    @IBOutlet weak var noFavLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     //var leagues: [League] = []
     var favoriteViewModel : FavoriteViewModel?
@@ -25,22 +27,38 @@ class FavoriteTableViewController: UIViewController , UITableViewDelegate, UITab
         self.tableView.register(nib, forCellReuseIdentifier: LeaguesTableViewCell.identifire)
         
         favoriteViewModel = FavoriteViewModel()
-      
+        
         //leagues = CoreDataHelper.shared.fetchSavedLeagues()
             favoriteViewModel?.bindResultToFavoriteViewController = { [weak self] in
                 DispatchQueue.main.async {
-                    //render
                     self?.tableView.reloadData()
-
                    // self?.indicator.stopAnimating()
                 }
                 
             }
+        print("num   \(favoriteViewModel?.leagues?.count)")
+        if(favoriteViewModel?.leagues?.count != 0){
+            print("test")
+            self.noFavImg.isHidden = true
+            self.noFavLabel.isHidden = true
+        }else{
+            self.noFavImg.isHidden = false
+            self.noFavLabel.isHidden = false
+        }
         print()
     }
     override func viewWillAppear(_ animated: Bool) {
         favoriteViewModel?.getSavedLeagues()
         self.tableView.reloadData()
+        if(favoriteViewModel?.leagues?.count != 0){
+            print("test")
+            self.noFavImg.isHidden = true
+            self.noFavLabel.isHidden = true
+        }else{
+            self.noFavImg.isHidden = false
+            self.noFavLabel.isHidden = false
+        }
+        
         reachability = try! Reachability()
     }
         
@@ -59,26 +77,27 @@ class FavoriteTableViewController: UIViewController , UITableViewDelegate, UITab
     }
 
     
-     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: LeaguesTableViewCell.identifire, for: indexPath) as! LeaguesTableViewCell
-
-        print(favoriteViewModel?.leagues?.count ?? -5)
-        cell.leagueName.text = favoriteViewModel?.leagues?[indexPath.row].league_name
-
-        cell.leagueImage.kf.setImage(with: URL(string: favoriteViewModel?.leagues?[indexPath.row].league_logo ?? "football.jpeg"))
-        print(favoriteViewModel?.leagues?[indexPath.row].sport_name ?? "oo")
         
-       // cell.contentView.layer.borderWidth = 0.5
-       // cell.contentView.layer.borderColor = UIColor.systemGray2.cgColor
-       // cell.contentView.layer.cornerRadius = 16
-        
-        cell.secondView.layer.cornerRadius = 25
-
-        cell.leagueImage.layer.cornerRadius = 50
-        
-         cell.layoutMargins = UIEdgeInsets(top: 0.5, left: 1, bottom: 0.5, right: 1.5)
-
-
+        if(favoriteViewModel?.leagues?.count != 0){
+            print("test")
+            self.noFavImg.isHidden = true
+            self.noFavLabel.isHidden = true
+            print(favoriteViewModel?.leagues?.count ?? -5)
+            cell.leagueName.text = favoriteViewModel?.leagues?[indexPath.row].league_name
+            
+            cell.leagueImage.kf.setImage(with: URL(string: favoriteViewModel?.leagues?[indexPath.row].league_logo ?? "football.jpeg"))
+            print(favoriteViewModel?.leagues?[indexPath.row].sport_name ?? "oo")
+            
+            cell.secondView.layer.cornerRadius = 25
+            cell.leagueImage.layer.cornerRadius = 50
+            cell.layoutMargins = UIEdgeInsets(top: 0.5, left: 1, bottom: 0.5, right: 1.5)
+            
+        }else{
+            self.noFavImg.isHidden = false
+            self.noFavLabel.isHidden = false
+        }
         return cell
     }
     
@@ -96,6 +115,14 @@ class FavoriteTableViewController: UIViewController , UITableViewDelegate, UITab
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             alert.addAction(UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
                 self?.deleteItem(at: indexPath)
+                if(self?.favoriteViewModel?.leagues?.count != 0){
+                    print("test")
+                    self?.noFavImg.isHidden = true
+                    self?.noFavLabel.isHidden = true
+                }else{
+                    self?.noFavImg.isHidden = false
+                    self?.noFavLabel.isHidden = false
+                }
             })
             present(alert, animated: true, completion: nil)
         }

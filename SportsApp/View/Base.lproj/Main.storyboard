@@ -46,8 +46,22 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wjy-dy-9UG">
+                                <rect key="frame" x="16" y="59" width="32" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="32" id="x18-PK-UAH"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="chevron.backward.circle.fill" catalog="system" title="  ">
+                                    <backgroundConfiguration key="background" cornerRadius="0.0"/>
+                                    <color key="baseForegroundColor" systemColor="labelColor"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="back:" destination="TQd-af-wRy" eventType="touchUpInside" id="nfg-Zz-Vuq"/>
+                                </connections>
+                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Leagues" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KMO-X7-0fb">
-                                <rect key="frame" x="32" y="59" width="133" height="40"/>
+                                <rect key="frame" x="51" y="59" width="133" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="133" id="xKd-Xi-Fpg"/>
                                 </constraints>
@@ -59,9 +73,12 @@
                         <viewLayoutGuide key="safeArea" id="xI9-ur-4s2"/>
                         <color key="backgroundColor" red="0.70419073099999996" green="0.70471400019999997" blue="0.7211013436" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="Wjy-dy-9UG" firstAttribute="bottom" secondItem="KMO-X7-0fb" secondAttribute="bottom" id="AQG-Tt-TAW"/>
+                            <constraint firstItem="Wjy-dy-9UG" firstAttribute="leading" secondItem="iEI-Tu-rqD" secondAttribute="leadingMargin" id="KX6-3S-yPJ"/>
+                            <constraint firstItem="Wjy-dy-9UG" firstAttribute="top" secondItem="KMO-X7-0fb" secondAttribute="top" id="KdO-2L-2J6"/>
                             <constraint firstItem="KMO-X7-0fb" firstAttribute="top" secondItem="iEI-Tu-rqD" secondAttribute="topMargin" id="LrW-8k-q0o"/>
                             <constraint firstItem="fsW-iT-Ut1" firstAttribute="top" secondItem="KMO-X7-0fb" secondAttribute="bottom" id="Q9m-EX-JzZ"/>
-                            <constraint firstItem="KMO-X7-0fb" firstAttribute="leading" secondItem="xI9-ur-4s2" secondAttribute="leading" constant="32" id="cfs-dA-Qkc"/>
+                            <constraint firstItem="KMO-X7-0fb" firstAttribute="leading" secondItem="Wjy-dy-9UG" secondAttribute="trailing" constant="3" id="UYs-jv-COj"/>
                         </constraints>
                     </view>
                     <connections>
@@ -91,6 +108,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
                         <segue destination="CmW-U7-6Jh" kind="relationship" relationship="viewControllers" id="ZGW-Wy-vAn"/>
@@ -167,7 +186,7 @@
             </objects>
             <point key="canvasLocation" x="596" y="234"/>
         </scene>
-        <!--Item-->
+        <!--Sports-->
         <scene sceneID="3Iq-hA-5Sb">
             <objects>
                 <viewController id="CmW-U7-6Jh" customClass="SportsCollectionViewController" customModule="SportsApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -268,7 +287,7 @@
                             <constraint firstItem="9h0-T5-4GJ" firstAttribute="leading" secondItem="Vha-3c-cjh" secondAttribute="leading" constant="24" id="reJ-Cz-heJ"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="5Gj-c0-70P"/>
+                    <tabBarItem key="tabBarItem" title="Sports" image="figure.disc.sports" catalog="system" id="5Gj-c0-70P"/>
                     <connections>
                         <outlet property="collectionView" destination="wei-qZ-W60" id="PCM-86-b3L"/>
                     </connections>
@@ -463,7 +482,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="f5h-zY-9bj">
-                                <rect key="frame" x="1" y="45" width="393" height="807"/>
+                                <rect key="frame" x="1" y="71" width="393" height="781"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="0.70419073099999996" green="0.70471400019999997" blue="0.7211013436" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="DoD-xH-1sJ">
@@ -535,6 +554,13 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="No Upcoming Events!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="22I-l2-pl4">
+                                                            <rect key="frame" x="0.0" y="0.0" width="334" height="128"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
                                                     </subviews>
                                                     <color key="backgroundColor" red="0.82325184350000002" green="0.82403087620000004" blue="0.82734197379999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
@@ -565,6 +591,7 @@
                                         <size key="customSize" width="334" height="128"/>
                                         <connections>
                                             <outlet property="date" destination="wez-fl-9MS" id="4VB-iK-fCS"/>
+                                            <outlet property="noUpcoming" destination="22I-l2-pl4" id="wag-oB-14Y"/>
                                             <outlet property="team1Img" destination="97H-qQ-sGc" id="ASO-I3-o63"/>
                                             <outlet property="team1Name" destination="w90-0K-fQ7" id="W2Z-Ks-WpD"/>
                                             <outlet property="team2Img" destination="TOO-Fr-WFd" id="dJR-Fp-Cud"/>
@@ -706,11 +733,31 @@
                                     <outlet property="delegate" destination="0xl-s2-1sZ" id="q9m-fE-YT3"/>
                                 </connections>
                             </collectionView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eFA-3m-Ywu">
-                                <rect key="frame" x="312" y="45" width="51" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gjm-b7-qQn">
+                                <rect key="frame" x="16" y="40" width="45" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="45" id="PxO-8n-gBB"/>
+                                    <constraint firstAttribute="height" constant="31" id="fcl-vN-1kG"/>
+                                </constraints>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="heart" catalog="system" title=""/>
+                                <buttonConfiguration key="configuration" style="plain" image="chevron.backward.circle.fill" catalog="system" title="  ">
+                                    <backgroundConfiguration key="background" cornerRadius="0.0"/>
+                                    <color key="baseForegroundColor" systemColor="labelColor"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="back:" destination="DV1-ma-STJ" eventType="touchUpInside" id="mRZ-qd-P0R"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eFA-3m-Ywu">
+                                <rect key="frame" x="326" y="42" width="51" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="51" id="DIC-8p-s59"/>
+                                    <constraint firstAttribute="height" constant="25" id="uzD-p0-KzN"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="heart" catalog="system" title="">
+                                    <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </buttonConfiguration>
                                 <connections>
                                     <action selector="favBtn:" destination="DV1-ma-STJ" eventType="touchUpInside" id="Jrv-i4-lHQ"/>
                                 </connections>
@@ -718,6 +765,12 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="UpX-hv-l0e"/>
                         <color key="backgroundColor" red="0.70419073099999996" green="0.70471400019999997" blue="0.7211013436" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="f5h-zY-9bj" firstAttribute="top" secondItem="Gjm-b7-qQn" secondAttribute="bottom" id="Rqe-gR-CgE"/>
+                            <constraint firstItem="Gjm-b7-qQn" firstAttribute="leading" secondItem="UpX-hv-l0e" secondAttribute="leading" constant="16" id="d5V-kT-dZx"/>
+                            <constraint firstItem="UpX-hv-l0e" firstAttribute="trailing" secondItem="eFA-3m-Ywu" secondAttribute="trailing" constant="16" id="mGs-Hs-ECW"/>
+                            <constraint firstItem="f5h-zY-9bj" firstAttribute="top" secondItem="eFA-3m-Ywu" secondAttribute="bottom" constant="4" id="o5P-Uu-Tol"/>
+                        </constraints>
                     </view>
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
@@ -731,10 +784,16 @@
             <point key="canvasLocation" x="-70.992366412213741" y="-685.91549295774655"/>
         </scene>
     </scenes>
+    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
     <resources>
+        <image name="chevron.backward.circle.fill" catalog="system" width="128" height="123"/>
+        <image name="figure.disc.sports" catalog="system" width="128" height="108"/>
         <image name="football" width="130" height="136"/>
         <image name="football.jpeg" width="259" height="194"/>
         <image name="heart" catalog="system" width="32" height="32"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

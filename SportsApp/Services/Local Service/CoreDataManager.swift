@@ -12,7 +12,12 @@ import CoreData
 
 class CoreDataHelper {
     static let shared = CoreDataHelper()
-    private init() {}
+    let appDelegate: AppDelegate?
+    let context : NSManagedObjectContext?
+    private init() {
+        appDelegate = Utility.appDelegete
+        context = appDelegate?.persistentContainer.viewContext
+    }
     
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "SportsApp")
@@ -26,8 +31,8 @@ class CoreDataHelper {
     
     
     func saveLeague(league:FavoriteLeague) {
-        let appDelegate = Utility.appDelegete
-        let context = appDelegate.persistentContainer.viewContext
+        
+        guard let context = context else {return}
         let entity = NSEntityDescription.entity(forEntityName: "FavouriteItem", in: context)
         
         let newEntity = NSManagedObject(entity: entity!, insertInto: context)
@@ -45,9 +50,8 @@ class CoreDataHelper {
     }
     
     func deleteLeague(league:FavoriteLeague) {
-        let appDelegate = Utility.appDelegete
-        let context = appDelegate.persistentContainer.viewContext
-        
+        guard let context = context else {return}
+
         let request: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "FavouriteItem")
         request.predicate = NSPredicate(format: "id == %d", league.league_key ?? -1)
         
@@ -65,13 +69,14 @@ class CoreDataHelper {
    
     
     func fetchSavedLeagues() -> [FavoriteLeague] {
+
         var savedLeagues: [FavoriteLeague] = []
-        let appDelegate = Utility.appDelegete
-        let context = appDelegate.persistentContainer.viewContext
-        
+        guard let context = context else {return savedLeagues}
+
         let fetchRequest =  NSFetchRequest<NSManagedObject>(entityName: "FavouriteItem")
         
         do {
+
             let fetchedEntities = try context.fetch(fetchRequest)
             for entity in fetchedEntities {
                 if let id = entity.value(forKey: "id") as? Int,
@@ -89,12 +94,12 @@ class CoreDataHelper {
         return savedLeagues
     }
     func deleteAllLeagues() {
-        let appDelegate = Utility.appDelegete
-        let context = appDelegate.persistentContainer.viewContext
         
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FavouriteItem")
         
         do {
+            guard let context = context else {return}
+
             let results = try context.fetch(fetchRequest)
             for object in results {
                 context.delete(object as! NSManagedObject)
@@ -107,9 +112,8 @@ class CoreDataHelper {
     }
 
     func isLeagueFavorited(league: FavoriteLeague) -> Bool {
-        let appDelegate = Utility.appDelegete
-        let context = appDelegate.persistentContainer.viewContext
-        
+        guard let context = context else {return false}
+
         let request: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "FavouriteItem")
         request.predicate = NSPredicate(format: "title == %@", league.league_name ?? "no data")
         
