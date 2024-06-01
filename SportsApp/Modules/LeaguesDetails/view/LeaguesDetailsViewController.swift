@@ -99,32 +99,18 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDelegate, 
         return UICollectionReusableView()
     }
 
-    func UpcomingEventsSection(withHeader: Bool)-> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1)
-                                              , heightDimension: .fractionalHeight(1))
+    func UpcomingEventsSection(withHeader: Bool) -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.9)
-                                               , heightDimension: .absolute(150))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize
-                                                       , subitems: [item])
-        group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0
-                                                      , bottom: 0, trailing: 15)
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.9), heightDimension: .absolute(150))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 15)
         
         let section = NSCollectionLayoutSection(group: group)
-        section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 15
-                                                        , bottom: 10, trailing: 0)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 15, bottom: 10, trailing: 0)
         section.orthogonalScrollingBehavior = .continuous
-        
-        section.visibleItemsInvalidationHandler = { (items, offset, environment) in
-            items.forEach { item in
-                let distanceFromCenter = abs((item.frame.midX - offset.x) - environment.container.contentSize.width / 2.0)
-                let minScale: CGFloat = 0.8
-                let maxScale: CGFloat = 1.0
-                let scale = max(maxScale - (distanceFromCenter / environment.container.contentSize.width), minScale)
-                item.transform = CGAffineTransform(scaleX: scale, y: scale)
-            }
-        }
+        section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 15, bottom: 10, trailing: 15)
         
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(44))
         let header = NSCollectionLayoutBoundarySupplementaryItem(
@@ -136,23 +122,18 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDelegate, 
         
         return section
     }
-    
-    func LatestResultsSection()-> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1)
-                                              , heightDimension: .fractionalHeight(1))
+
+    func LatestResultsSection() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.9)
-                                               , heightDimension: .absolute(150))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize
-                                                       , subitems: [item])
-        group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0
-                                                      , bottom: 0, trailing: 15)
-        
+
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(150))
+        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+        group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+
         let section = NSCollectionLayoutSection(group: group)
-        section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 15
-                                                        , bottom: 10, trailing: 0)
-        section.orthogonalScrollingBehavior = .continuous
+        section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 15, bottom: 10, trailing: 15)
+        section.orthogonalScrollingBehavior = .none
 
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(44))
         let header = NSCollectionLayoutBoundarySupplementaryItem(
@@ -161,25 +142,22 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDelegate, 
             alignment: .top
         )
         section.boundarySupplementaryItems = [header]
-        
-        return section
 
+        return section
     }
-    func TeamsSection()->NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1)
-                                              , heightDimension: .fractionalHeight(1))
+
+
+    func TeamsSection() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1)
-                                               , heightDimension: .absolute(180))
-        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize
-                                                     , subitems: [item])
-        group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0
-                                                      , bottom: 8, trailing: 0)
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.4), heightDimension: .absolute(180))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 8, trailing: 0)
         
         let section = NSCollectionLayoutSection(group: group)
-        section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 15
-                                                        , bottom: 10, trailing: 15)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 15, bottom: 10, trailing: 15)
+        section.orthogonalScrollingBehavior = .continuous
         
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(44))
         let header = NSCollectionLayoutBoundarySupplementaryItem(
@@ -191,7 +169,8 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDelegate, 
         
         return section
     }
-    
+
+
     /*
      // MARK: - Navigation
      
@@ -222,6 +201,9 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDelegate, 
                 cell.date.text = event.event_date
                 cell.team1Img.kf.setImage(with: URL(string: event.home_team_logo ?? ""))
                 cell.team2Img.kf.setImage(with: URL(string: event.away_team_logo ?? ""))
+                
+                
+                cell.upcomingView.layer.cornerRadius = 25.0
             }
             return cell
             
@@ -235,6 +217,9 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDelegate, 
                 cell.resultR.text = result.event_final_result
                 cell.team1ImgR.kf.setImage(with: URL(string: result.home_team_logo ?? ""))
                 cell.team2ImgR.kf.setImage(with: URL(string: result.away_team_logo ?? ""))
+                
+                cell.layer.borderWidth = 5
+                cell.layer.borderColor = cell.contentView.backgroundColor?.cgColor
             }
             return cell
 
@@ -248,6 +233,7 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDelegate, 
                
                 
                 cell.teamsLogo.kf.setImage(with: URL(string: result.team_logo ?? ""))
+                cell.teamsLogo.layer.cornerRadius = 25
             }
             return cell
             
@@ -421,9 +407,11 @@ class CustomHeaderView: UICollectionReusableView {
 
     private func setupViews() {
         addSubview(titleLabel)
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 22)
+
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 8),
             titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8)
